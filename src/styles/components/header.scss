@@ -1,0 +1,242 @@
+.header {
+  background-color: #000000;
+  
+  // Header container
+  &__container {
+    padding: 40px 35px;
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  // Logo section
+  &__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    
+    &-image {
+      max-width: 138.75px;
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  // Navigation section
+  &__nav {
+    display: flex;
+    gap: 20px;
+    
+    &-list {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    &-item {
+      margin: 0;
+    }
+    
+    &-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16.86px;
+      text-align: center;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: color 0.25s ease-in-out;
+      
+      &:hover {
+        color: #90FF00;
+      }
+      
+      &:focus {
+        outline: none;
+        color: #90FF00;
+      }
+    }
+  }
+  
+  // Controls section (right side)
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 32px;
+  
+  &__option {
+    background: none;
+    border: none;
+    color: #9CA3AF;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 2px 2px;
+    cursor: pointer;
+    transition: color 0.25s ease-in-out;
+    text-transform: uppercase;
+    
+    &:hover {
+      color: #6B7280;
+    }
+    
+    &--active {
+      color: #90FF00;
+    }
+  }
+  
+  &__separator {
+    width: 1px;
+    height: 20px;
+    background-color: #90FF00;
+    margin: 0 4px;
+  }
+}
+
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &__container {
+    position: relative;
+    width: 80px;
+    height: 32px;
+    border: 2px solid #FFFFFF;
+    border-radius: 20px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: all 0.25s ease-in-out;
+    
+    &--active {
+      .theme-toggle__sun,
+      .theme-toggle__moon {
+        filter: brightness(1.2);
+      }
+    }
+  }
+  
+  &__sun,
+  &__moon {
+    width: 20px;
+    height: 20px;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  &__sun {
+    filter: brightness(0.8);
+  }
+  
+  &__moon {
+    filter: brightness(0.8);
+  }
+  
+  &:hover {
+    .theme-toggle__container {
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .theme-toggle__sun,
+    .theme-toggle__moon {
+      filter: brightness(1);
+    }
+  }
+}
+
+.cart-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  
+  &__icon {
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.25s ease-in-out;
+  }
+  
+  &__badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  
+  &:hover {
+    .cart-button__icon {
+      opacity: 0.8;
+    }
+  }
+}
+
+.auth-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease-in-out;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+  
+  &__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Premium Headphones",
+    "description": "High-quality wireless headphones with noise cancellation",
+    "price": 299,
+    "oldPrice": 399,
+    "hotPrice": null,
+    "category": "electronics",
+    "tags": ["audio", "wireless", "premium"],
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+    "rating": 4.5,
+    "reviews": [
+      {
+        "id": 1,
+        "user": "John Doe",
+        "rating": 5,
+        "comment": "Excellent sound quality!",
+        "date": "2024-01-15"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "description": "Advanced fitness tracking and notifications",
+    "price": 199,
+    "oldPrice": null,
+    "hotPrice": 149,
+    "category": "electronics",
+    "tags": ["fitness", "smart", "wearable"],
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+    "rating": 4.2,
+    "reviews": []
+  },
+  {
+    "id": 3,
+    "name": "Designer T-Shirt",
+    "description": "Comfortable cotton t-shirt with modern design",
+    "price": 49,
+    "oldPrice": 69,
+    "hotPrice": null,
+    "category": "fashion",
+    "tags": ["clothing", "cotton", "designer"],
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+    "rating": 4.8,
+    "reviews": []
+  },
+  {
+    "id": 4,
+    "name": "Coffee Maker",
+    "description": "Automatic drip coffee maker with timer",
+    "price": 89,
+    "oldPrice": null,
+    "hotPrice": 69,
+    "category": "home",
+    "tags": ["kitchen", "coffee", "automatic"],
+    "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400",
+    "rating": 4.3,
+    "reviews": []
+  }
+]
