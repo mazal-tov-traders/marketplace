@@ -8,7 +8,11 @@ const resources = {
         home: 'Home',
         products: 'Products',
         cart: 'Cart',
-        back: 'BACK'
+        back: 'BACK',
+        createAd: 'CREATE AD',
+        profile: 'PROFILE',
+        favorites: 'FAVORITES',
+        contacts: 'CONTACTS'
       },
       hero: {
         title: 'Welcome to Marketplace',
@@ -50,10 +54,11 @@ const resources = {
         quickLinks: 'Quick Links',
         support: 'Support',
         helpCenter: 'Help Center',
-        contactUs: 'Contact Us',
         faq: 'FAQ',
         contact: 'Contact',
-        rights: 'All rights reserved.'
+        rights: 'All rights reserved.',
+        contactUs: 'CONTACT US',
+        withUs: 'WITH US'
       }
     }
   },
@@ -63,7 +68,11 @@ const resources = {
         home: 'Головна',
         products: 'Товари',
         cart: 'Кошик',
-        back: 'НАЗАД'
+        back: 'НАЗАД',
+        createAd: 'СТВОРИТИ ОГОЛОШЕННЯ',
+        profile: 'ПРОФІЛЬ',
+        favorites: 'УЛЮБЛЕНІ',
+        contacts: 'КОНТАКТИ'
       },
       hero: {
         title: 'Ласкаво просимо до Маркетплейсу',
@@ -105,10 +114,11 @@ const resources = {
         quickLinks: 'Швидкі Посилання',
         support: 'Підтримка',
         helpCenter: 'Центр Допомоги',
-        contactUs: 'Зв\'язатися з Нами',
         faq: 'Часті Питання',
         contact: 'Контакти',
-        rights: 'Всі права захищені.'
+        rights: 'Всі права захищені.',
+        contactUs: 'ЗВ\'ЯЗАТИСЬ',
+        withUs: 'З НАМИ'
       }
     }
   }

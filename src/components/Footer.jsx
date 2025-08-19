@@ -6,78 +6,83 @@ export const Footer = () => {
 
   return (
     <footer className="footer">
-      {/* Top Section - Contact and Social Media */}
-      <div className="footer__top">
-        <div className="footer__container">
-          {/* Left Side - Logo */}
-          <div className="footer__logo">
-            <div className="footer__logo-text">
-              <span className="footer__logo-line">HOLY TRAFF</span>
-              <span className="footer__logo-line">MARKET</span>
-            </div>
-          </div>
+      <div className="footer__container">
+        {/* Top Section - Contact and Social Media */}
+        <div className="footer__top">
+          <div className="footer__content">
+            {/* Left Side - Logo */}
+            <Link to="/" className="footer__logo">
+              <img src={"/images/logo.svg"} alt="logo" className="footer__logo-image" />
+            </Link>
 
-          {/* Middle Section - Call to Action */}
-          <div className="footer__contact">
-            <div className="footer__contact-text">
-              <span className="footer__contact-white">ЗВ'ЯЗАТИСЬ</span>
-              <span className="footer__contact-green">З НАМИ</span>
+            {/* Middle Section - Call to Action */}
+            <div className="footer__contact">
+              <div className="footer__contact-text">
+                <span className="footer__contact-text-white">{t('footer.contactUs')}</span>
+                <span className="footer__contact-text-green">{t('footer.withUs')}</span>
+              </div>
             </div>
-          </div>
 
-          {/* Right Side - Social Media and Contact Links */}
-          <div className="footer__socials">
-            <div className="footer__social-item">
-              <img src="/images/youtube-icon.svg" alt="YouTube" className="footer__social-icon" />
+            {/* Right Side - Social Media and Contact Links */}
+            <div className="footer__socials footer__socials-icon-link">
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/youtube-icon.svg" alt="YouTube" className="footer__social-icon" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/instagram-icon.svg" alt="Instagram" className="footer__social-icon" />
+              </a>
+              <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/telegram-icon.svg" alt="Telegram" className="footer__social-icon" />
+              </a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/tiktok-icon.svg" alt="TikTok" className="footer__social-icon" />
+              </a>
             </div>
-            <div className="footer__social-item">
-              <img src="/images/instagram-icon.svg" alt="Instagram" className="footer__social-icon" />
-            </div>
-            <div className="footer__social-item">
-              <img src="/images/telegram-icon.svg" alt="Telegram" className="footer__social-icon" />
-              <span className="footer__social-text">@PR_HOLY</span>
-            </div>
-            <div className="footer__social-item">
-              <img src="/images/tiktok-icon.svg" alt="TikTok" className="footer__social-icon" />
-            </div>
-            <div className="footer__social-item">
-              <img src="/images/telegram-icon.svg" alt="Telegram" className="footer__social-icon" />
-              <span className="footer__social-text">@HOLYAPPS</span>
-            </div>
-            <div className="footer__social-item">
-              <img src="/images/email-icon.svg" alt="Email" className="footer__social-icon footer__social-icon--white" />
-              <span className="footer__social-text">HOLY@GMAIL.COM</span>
+            
+            <div className="footer__socials footer__socials--contact">
+              <a href="https://t.me/PR_HOLY" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/tg-white-icon.svg" alt="Telegram" className="footer__social-icon footer__social-icon--white" />
+                <span className="footer__social-text">@PR_HOLY</span>
+              </a>
+              <a href="https://t.me/HOLYAPPS" target="_blank" rel="noopener noreferrer" className="footer__social-link">
+                <img src="/images/tg-white-icon.svg" alt="Telegram" className="footer__social-icon footer__social-icon--white" />
+                <span className="footer__social-text">@HOLYAPPS</span>
+              </a>
+              <a href="mailto:HOLY@GMAIL.COM" className="footer__social-link">
+                <img src="/images/email-icon.svg" alt="Email" className="footer__social-icon footer__social-icon--white" />
+                <span className="footer__social-text">HOLY@GMAIL.COM</span>
+              </a>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Section - Repeating Text Pattern */}
-      <div className="footer__bottom">
-        <div className="footer__marquee">
-          <div className="footer__marquee-content">
-            {/* First set */}
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            {/* Duplicate for seamless loop */}
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
-            <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+        {/* Bottom Section - Repeating Text Pattern */}
+        <div className="footer__bottom">
+          <div className="footer__marquee">
+            <div className="footer__marquee-content">
+              {/* First set */}
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              {/* Duplicate for seamless loop */}
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+              <img src="/images/holy-traff.svg" alt="HOLY TRAFF" className="footer__marquee-text" />
+            </div>
           </div>
         </div>
       </div>
