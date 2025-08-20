@@ -2,30 +2,32 @@ import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useCart } from "@/contexts/CartContext"
+import { useProducts } from "@/contexts/ProductsContext"
 import { MarketplaceButton } from "@/components/ui/marketplace-button"
 import { Rating } from "@/components/Rating"
 import { ArrowLeft, Star, ShoppingCart } from "lucide-react"
-import productsData from "@/data/products.json"
 import { useToast } from "@/hooks/use-toast"
 
 export default function Product() {
   const { id } = useParams()
   const { t } = useTranslation()
   const { addToCart } = useCart()
+  const { getProductById } = useProducts()
   const { toast } = useToast()
   const [product, setProduct] = useState(null)
   const [selectedImage, setSelectedImage] = useState(0)
 
   useEffect(() => {
-    const foundProduct = productsData.find(p => p.id === parseInt(id))
+    // Ищем продукт по ID (может быть строкой или числом)
+    const foundProduct = getProductById(parseInt(id) || id)
     setProduct(foundProduct)
-  }, [id])
+  }, [id, getProductById])
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold mb-4">Product not found</h1>
+      <div className="product-not-found">
+        <div className="product-not-found__content">
+          <h1 className="product-not-found__title">Product not found</h1>
           <Link to="/">
             <MarketplaceButton variant="green">
               Go Home
@@ -47,44 +49,42 @@ export default function Product() {
   const images = [product.image] // In a real app, you'd have multiple images
 
   return (
-    <div className="min-h-screen bg-background py-12">
-      <div className="marketplace-container">
+    <div className="product-page">
+      <div className="product-page__container">
         {/* Back Button */}
         <Link 
           to="/" 
-          className="inline-flex items-center text-brand-green hover:text-brand-green/80 transition-colors mb-8"
+          className="product-page__back-btn"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+          <ArrowLeft className="product-page__back-icon" />
           Back to Products
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="product-page__grid">
           {/* Product Images */}
-          <div className="space-y-4">
+          <div className="product-page__images">
             {/* Main Image */}
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="product-page__main-image">
               <img
                 src={images[selectedImage]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="product-page__image"
               />
             </div>
             
             {/* Thumbnail Images */}
             {images.length > 1 && (
-              <div className="flex space-x-2">
+              <div className="product-page__thumbnails">
                 {images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 overflow-hidden rounded-lg border-2 ${
-                      selectedImage === index ? 'border-brand-green' : 'border-gray-200'
-                    }`}
+                    className={`product-page__thumbnail ${selectedImage === index ? 'product-page__thumbnail--active' : ''}`}
                   >
                     <img
                       src={image}
                       alt={`${product.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="product-page__thumbnail-image"
                     />
                   </button>
                 ))}
@@ -93,46 +93,46 @@ export default function Product() {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">{product.name}</h1>
-              <p className="text-muted-foreground text-lg">{product.description}</p>
+          <div className="product-page__info">
+            <div className="product-page__header">
+              <h1 className="product-page__title">{product.name}</h1>
+              <p className="product-page__description">{product.description}</p>
             </div>
 
             {/* Rating */}
-            <div className="flex items-center space-x-2">
+            <div className="product-page__rating">
               <Rating rating={product.rating} />
-              <span className="text-muted-foreground">
+              <span className="product-page__rating-count">
                 ({product.reviews.length} {t('product.reviews')})
               </span>
             </div>
 
             {/* Price */}
-            <div className="space-y-2">
+            <div className="product-page__pricing">
               {product.oldPrice && (
-                <div className="text-2xl text-muted-foreground line-through">
+                <div className="product-page__old-price">
                   ${product.oldPrice}
                 </div>
               )}
-              <div className="text-4xl font-bold text-brand-green">
+              <div className="product-page__current-price">
                 ${product.hotPrice || product.price}
               </div>
             </div>
 
             {/* Category & Tags */}
-            <div className="space-y-3">
-              <div>
-                <span className="font-semibold">Category: </span>
-                <span className="text-muted-foreground capitalize">{product.category}</span>
+            <div className="product-page__details">
+              <div className="product-page__category">
+                <span className="product-page__label">Category: </span>
+                <span className="product-page__value">{product.category}</span>
               </div>
-              {product.tags.length > 0 && (
-                <div>
-                  <span className="font-semibold">Tags: </span>
-                  <div className="flex flex-wrap gap-2 mt-2">
+              {product.tags && product.tags.length > 0 && (
+                <div className="product-page__tags">
+                  <span className="product-page__label">Tags: </span>
+                  <div className="product-page__tags-list">
                     {product.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                        className="product-page__tag"
                       >
                         {tag}
                       </span>
@@ -143,14 +143,14 @@ export default function Product() {
             </div>
 
             {/* Add to Cart */}
-            <div className="space-y-4">
+            <div className="product-page__actions">
               <MarketplaceButton
                 onClick={handleAddToCart}
-                className="w-full"
+                className="product-page__add-to-cart-btn"
                 variant="green"
                 size="lg"
               >
-                <ShoppingCart className="h-5 w-5 mr-2" />
+                <ShoppingCart className="product-page__cart-icon" />
                 Add to Cart
               </MarketplaceButton>
             </div>
@@ -158,29 +158,25 @@ export default function Product() {
         </div>
 
         {/* Reviews Section */}
-        {product.reviews.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-6">Reviews</h2>
-            <div className="space-y-4">
+        {product.reviews && product.reviews.length > 0 && (
+          <div className="product-page__reviews">
+            <h2 className="product-page__reviews-title">Reviews</h2>
+            <div className="product-page__reviews-list">
               {product.reviews.map((review) => (
-                <div key={review.id} className="bg-card rounded-lg p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold">{review.user}</span>
-                    <div className="flex items-center space-x-1">
+                <div key={review.id} className="product-page__review">
+                  <div className="product-page__review-header">
+                    <span className="product-page__review-author">{review.user}</span>
+                    <div className="product-page__review-stars">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <Star
                           key={index}
-                          className={`h-4 w-4 ${
-                            index < review.rating
-                              ? 'fill-yellow-400 text-yellow-400'
-                              : 'text-gray-300'
-                          }`}
+                          className={`product-page__star ${index < review.rating ? 'product-page__star--filled' : ''}`}
                         />
                       ))}
                     </div>
                   </div>
-                  <p className="text-muted-foreground">{review.comment}</p>
-                  <span className="text-sm text-muted-foreground">{review.date}</span>
+                  <p className="product-page__review-comment">{review.comment}</p>
+                  <span className="product-page__review-date">{review.date}</span>
                 </div>
               ))}
             </div>

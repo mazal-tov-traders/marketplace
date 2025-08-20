@@ -6,7 +6,7 @@ const resources = {
     translation: {
       nav: {
         home: 'Home',
-        products: 'Products',
+        products: 'CREATE AD',
         cart: 'Cart',
         back: 'BACK',
         createAd: 'CREATE AD',
@@ -22,7 +22,18 @@ const resources = {
       },
       product: {
         addToCart: 'Add to Cart',
-        reviews: 'reviews'
+        reviews: 'reviews',
+        buyButton: 'BUY',
+        types: {
+          static: 'STATIC CREATIVES',
+          dynamic: 'DYNAMIC CREATIVES',
+          video: 'VIDEO CREATIVES'
+        },
+        subtypes: {
+          single: 'Single Banner',
+          pack: 'Banner Pack',
+          collection: 'Banner Collection'
+        }
       },
       cart: {
         title: 'Shopping Cart',
@@ -59,6 +70,23 @@ const resources = {
         rights: 'All rights reserved.',
         contactUs: 'CONTACT US',
         withUs: 'WITH US'
+      },
+      pages: {
+        addProduct: 'Add New Product',
+        profile: 'Profile',
+        favorites: 'Favorites',
+        contacts: 'Contact Us',
+        backToHome: 'Back to Home',
+        backToProducts: 'Back to Products'
+      },
+      categories: {
+        all: "All Categories",
+        electronics: "Electronics",
+        fashion: "Fashion",
+        home: "Home & Garden",
+        sports: "Sports & Outdoors",
+        books: "Books & Media",
+        other: "Other"
       }
     }
   },
@@ -66,7 +94,7 @@ const resources = {
     translation: {
       nav: {
         home: 'Головна',
-        products: 'Товари',
+        products: 'СТВОРИТИ ОГОЛОШЕННЯ',
         cart: 'Кошик',
         back: 'НАЗАД',
         createAd: 'СТВОРИТИ ОГОЛОШЕННЯ',
@@ -82,7 +110,18 @@ const resources = {
       },
       product: {
         addToCart: 'Додати в Кошик',
-        reviews: 'відгуків'
+        reviews: 'відгуків',
+        buyButton: 'ПРИДБАТИ',
+        types: {
+          static: 'СТАТИЧНІ КРЕАТИВИ',
+          dynamic: 'ДИНАМІЧНІ КРЕАТИВИ',
+          video: 'ВІДЕО КРЕАТИВИ'
+        },
+        subtypes: {
+          single: 'Поодинокий банер',
+          pack: 'Пакет банерів',
+          collection: 'Колекція банерів'
+        }
       },
       cart: {
         title: 'Кошик Покупок',
@@ -119,6 +158,23 @@ const resources = {
         rights: 'Всі права захищені.',
         contactUs: 'ЗВ\'ЯЗАТИСЬ',
         withUs: 'З НАМИ'
+      },
+      pages: {
+        addProduct: 'Додати Новий Продукт',
+        profile: 'Профіль',
+        favorites: 'Улюблені',
+        contacts: 'Зв\'язатися з Нами',
+        backToHome: 'Повернутися на Головну',
+        backToProducts: 'Повернутися до Продуктів'
+      },
+      categories: {
+        all: "Всі Категорії",
+        electronics: "Електроніка",
+        fashion: "Мода",
+        home: "Головна та Сад",
+        sports: "Спорт та Відпочинок",
+        books: "Книги та Медіа",
+        other: "Інше"
       }
     }
   }
