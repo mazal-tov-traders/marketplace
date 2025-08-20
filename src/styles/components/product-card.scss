@@ -1,141 +1,163 @@
-// =============================================================================
-// PRODUCT CARD COMPONENT STYLES
-// =============================================================================
-
 .product-card {
-  background: var(--card);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
   position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 40px 24px;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.5px);
   }
 
-  // TOP label - ярко-зеленый как на картинке
   &__top-label {
     position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    background: #22c55e;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
+    top: 70px;
+    left: -1px;
+    color: black;
+    padding: 11px 51px 11px 23px;
     text-transform: uppercase;
-    z-index: 10;
-    letter-spacing: 0.05em;
+    z-index: 2;
+    font-family: "Arial";
+    font-size: 24px;
+
   }
 
-  // Header Section - как на картинке
+  &__top-label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/images/top-label-flag-icon.svg") no-repeat center center;
+    background-size: contain;
+    z-index: -1;
+  }
+
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 46px;
   }
 
   &__brand {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--foreground);
+    gap: 6px;
+    flex: 1;
+  }
+
+  &__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #000000;
+  }
+
+  &__brand span {
+    color: #000000;
+    font-family: "Arial";
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: uppercase;
+
   }
 
   &__actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
   }
 
   &__rating {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
   }
 
   &__chat-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     background: none;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s ease;
-    position: relative;
+    width: 32.5px;
+    height: 32.5px;
+    background-color: #90FF00;
 
-    &:hover {
-      background: var(--muted);
-    }
   }
 
   &__chat-icon {
-    position: relative;
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #22c55e;
+    width: 16px;
+    height: 16px;
   }
 
   &__chat-count {
-    position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
-    background: #22c55e;
-    color: white;
-    font-size: 0.625rem;
+    font-family: "JetBrains Mono";
     font-weight: 700;
-    width: 1rem;
-    height: 1rem;
+    font-size: 6.24px;
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #fff;
+    min-width: 18px;
+    padding: 1px 1px 1px 1px;
+    height: auto;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #000000;
   }
 
   &__favorite-btn {
     background: none;
     border: none;
+    padding: 6px;
+    border-radius: 6px;
     cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    color: #22c55e;
 
     &:hover {
-      background: var(--muted);
+      background: #f1f5f9;
+      transform: scale(1.1);
     }
   }
 
   &__favorite-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #22c55e;
-    transition: all 0.3s ease;
+    width: 18px;
+    height: 18px;
+    transition: all 0.2s ease;
 
     &--active {
-      color: #ef4444;
-      fill: currentColor;
+      color: #90FF00;
+      fill: #90FF00;
     }
   }
 
-  // Main Content Section
   &__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    margin-bottom: 46px;
   }
 
   &__image-link {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     color: inherit;
   }
@@ -144,7 +166,10 @@
     position: relative;
     aspect-ratio: 1;
     overflow: hidden;
-    background: var(--muted);
+    max-width: 221px;
+    width: 100%;
+    height: auto;
+    background: #f8fafc;
   }
 
   &__image {
@@ -158,270 +183,167 @@
     transform: scale(1.05);
   }
 
-  &__overlay-text {
+  &__payment-methods {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    right: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fbbf24;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
   }
 
-  &__promo-text {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    text-align: center;
-    line-height: 1.4;
+  &__payment-icon {
+    width: 24px;
+    height: 16px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
   }
 
-  // Footer Section - как на картинке
   &__footer {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    flex: 1;
   }
 
   &__type {
     text-align: center;
+    margin-bottom: 46px;
   }
 
   &__type-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--foreground);
-    margin: 0 0 0.25rem 0;
+    font-family: "Arial";
+    font-weight: 400;
+    font-size: 28px;
+    text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: #000;
+    margin: 0 0 12px 0;
+
   }
 
   &__type-subtitle {
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
+    color: #000;
     margin: 0;
-    line-height: 1.4;
+    font-family: "Arial";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
   }
 
   &__platforms {
+    font-family: "Arial";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
     text-align: center;
-    font-size: 0.75rem;
-    color: var(--muted-foreground);
-    padding: 0.5rem;
-    background: var(--muted);
-    border-radius: 0.5rem;
-    line-height: 1.4;
+    color: #000;
   }
 
   &__pricing {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin: 0.5rem 0;
+    gap: 12px;
+    margin-bottom: 28px;
   }
 
   &__old-price {
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
+    font-family: "JetBrains Mono";
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #8E8E8E;
     text-decoration: line-through;
   }
 
   &__current-price {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--foreground);
+    color: #000;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 110.00000000000001%;
+    text-transform: uppercase;
 
     &--hot {
-      color: #ef4444;
+      color: #FF0000;
     }
   }
 
   &__buy-btn {
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-    background: #22c55e;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
+    font-family: "JetBrains Mono";
     font-weight: 700;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
     text-transform: uppercase;
+    width: fit-content;
+    padding: 12px 67px;
+    margin: 0 auto;
+    background: #90FF00;
+    color: #000;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(144, 255, 0, 0.3);
 
     &:hover {
-      background: #16a34a;
+      background: #90FF00;
+      transform: translateY(-0.5px);
+      box-shadow: 0 4px 12px rgba(144, 255, 0, 0.4);
     }
 
     &:active {
-      transform: translateY(1px);
-    }
-  }
-
-  // Payment methods section
-  &__payment-methods {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background: var(--muted);
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  &__payment-icon {
-    width: 1.5rem;
-    height: 1rem;
-    object-fit: contain;
-  }
-}
-
-// Темная тема - точно как на картинке
-[data-theme="dark"] .product-card {
-  background: #1a1a1a;
-  border-color: #404040;
-
-  &__overlay-text,
-  &__promo-text {
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  &__platforms {
-    background: #262626;
-  }
-
-  &__payment-methods {
-    background: #262626;
-  }
-
-  &__image-container {
-    background: #262626;
-  }
-
-  &__overlay-text {
-    color: #fbbf24;
-  }
-}
-
-// Светлая тема
-[data-theme="light"] .product-card {
-  background: white;
-  border-color: #e5e7eb;
-
-  &__overlay-text,
-  &__promo-text {
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  &__platforms {
-    background: #f3f4f6;
-  }
-
-  &__payment-methods {
-    background: #f3f4f6;
-  }
-
-  &__image-container {
-    background: #f3f4f6;
-  }
-
-  &__overlay-text {
-    color: #fbbf24;
-  }
-}
-
-// Rating Component Styles
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  
-  &__star {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    &--filled {
-      svg {
-        filter: drop-shadow(0 0 2px rgba(144, 255, 0, 0.6));
-      }
-    }
-    
-    &--half {
-      svg {
-        filter: drop-shadow(0 0 2px rgba(144, 255, 0, 0.6));
-      }
-    }
-    
-    &--empty {
-      svg {
-        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
-      }
+      transform: translateY(0);
     }
   }
 }
 
-// Responsive Design
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .product-card__top-label {
+    top: 53px;
+  }
+
   .product-card {
-    padding: 16px;
-    gap: 16px;
-    
-    &__image-container {
-      height: 160px;
-    }
-    
-    &__overlay-text {
-      font-size: 20px;
-    }
-    
-    &__type-title {
-      font-size: 14px;
-    }
-    
-    &__current-price {
-      font-size: 16px;
-    }
-    
-    &__buy-btn {
-      padding: 10px 20px;
-      font-size: 12px;
+    margin: 0;
+    padding: 20px 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-top: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(to bottom, transparent, #e2e8f0, transparent) 1;
+      pointer-events: none;
+      z-index: 1;
     }
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 768px) {
+
   .product-card {
-    padding: 12px;
-    gap: 12px;
-    
-    &__image-container {
-      height: 140px;
-    }
-    
-    &__overlay-text {
-      font-size: 18px;
-    }
-    
-    &__promo-text {
-      font-size: 11px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-left: 2px solid transparent;
+      border-right: 2px solid transparent;
+      border-image: linear-gradient(to bottom, transparent, #e2e8f0, transparent) 1;
+      pointer-events: none;
+      z-index: 1;
     }
   }
 }

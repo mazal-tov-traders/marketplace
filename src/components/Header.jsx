@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useTheme } from "@/contexts/ThemeContext"
+import { useCart } from "@/contexts/CartContext"
 import { MarketplaceButton } from "@/components/ui/marketplace-button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { LanguageToggle } from "@/components/ui/language-toggle"
@@ -7,9 +8,10 @@ import { Link } from "react-router-dom"
 import { AuthDialog } from "@/components/AuthDialog"
 import { useState, useEffect } from "react"
 
-export const Header = ({ cartItemsCount }) => {
+export const Header = () => {
   const { t, i18n } = useTranslation()
   const { theme, toggleTheme } = useTheme()
+  const { getTotalItems } = useCart()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const changeLanguage = (lng) => {
@@ -78,9 +80,9 @@ export const Header = ({ cartItemsCount }) => {
           {/* Cart */}
           <Link to="/cart" className="cart-button">
             <img src="/images/cart-icon.svg" alt="cart" className="cart-button__icon" />
-            {cartItemsCount > 0 && (
+            {getTotalItems() > 0 && (
               <span className="cart-button__badge">
-                {cartItemsCount}
+                {getTotalItems()}
               </span>
             )}
           </Link>

@@ -1,0 +1,17 @@
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 18px;
+      height: 18px;
+
+    }
+  }
+}

@@ -14,13 +14,13 @@
   z-index: 100;
 
   &__container {
-    max-width: 1200px;
+    max-width: 1800px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 35px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
   }
 
   &__left {
@@ -223,7 +223,7 @@
   position: relative;
 
   &__container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
     position: relative;
     z-index: 1;

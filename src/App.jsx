@@ -9,7 +9,6 @@ import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { ProductsProvider } from "@/contexts/ProductsContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { useCart } from "@/contexts/CartContext";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -23,11 +22,9 @@ import "@/lib/i18n";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { getTotalItems } = useCart();
-  
   return (
     <div className="min-h-screen flex flex-col">
-      <Header cartItemsCount={getTotalItems()} />
+      <Header />
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />

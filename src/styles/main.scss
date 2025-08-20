@@ -5,6 +5,7 @@
 @use './sections/hero' as *;
 @use './components/product-card' as *;
 @use './components/product-page' as *;
+@use './components/rating-stars' as *;
 @use './sections/product-collection' as *;
 
 // CSS Variables for themes
@@ -56,25 +57,7 @@
   --brand-green-hover: #16a34a;
 }
 
-// Products Section Styles
-.products-section {
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(144, 255, 0, 0.3), transparent);
-  }
-  
-  .marketplace-container {
-    position: relative;
-    z-index: 1;
-  }
-}
+
 
 // Reset and base styles
 * {

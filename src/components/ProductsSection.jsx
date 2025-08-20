@@ -234,7 +234,7 @@ export const ProductsSection = () => {
       {/* Основная секция с продуктами */}
       <section className="products-section">
         <div className="products-section__container">
-          {/* Сетка продуктов - 3 колонки как на картинке */}
+        
           {filteredProducts.length > 0 ? (
             <div className="products-section__grid">
               {productsWithFavorites.map(product => (
