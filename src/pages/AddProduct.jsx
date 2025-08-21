@@ -33,18 +33,22 @@ export default function AddProduct() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    try {
+      const { name, value } = e.target
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }))
+    } catch (error) {
+      console.error("Error in handleInputChange:", error)
+    }
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
     try {
+      e.preventDefault()
+      setIsSubmitting(true)
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
@@ -274,16 +278,20 @@ export default function AddProduct() {
                         value={platform}
                         checked={formData.platforms.includes(platform)}
                         onChange={(e) => {
-                          if (e.target.checked) {
-                            setFormData(prev => ({
-                              ...prev,
-                              platforms: [...prev.platforms, platform]
-                            }))
-                          } else {
-                            setFormData(prev => ({
-                              ...prev,
-                              platforms: prev.platforms.filter(p => p !== platform)
-                            }))
+                          try {
+                            if (e.target.checked) {
+                              setFormData(prev => ({
+                                ...prev,
+                                platforms: [...prev.platforms, platform]
+                              }))
+                            } else {
+                              setFormData(prev => ({
+                                ...prev,
+                                platforms: prev.platforms.filter(p => p !== platform)
+                              }))
+                            }
+                          } catch (error) {
+                            console.error("Error in platform checkbox change:", error)
                           }
                         }}
                         className="rounded border-gray-300 text-brand-green focus:ring-brand-green"

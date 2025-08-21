@@ -1,12 +1,14 @@
 .header {
   background-color: #000000;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  &__inner.page-width {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  &__inner {
 
-  &__container {
-    padding: 40px 35px;
-    max-width: 1800px;
-    width: 100%;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -151,7 +153,7 @@
 
   &__mobile-menu {
     position: fixed;
-    top: 0;
+    top: 122px;
     left: 0;
     width: 100%;
     height: auto;
@@ -232,7 +234,7 @@
       outline: none;
     }
 
-    &__container {
+    &__inner {
       position: relative;
       width: 80px;
       height: 32px;
@@ -347,7 +349,7 @@
     outline: none;
   }
 
-  &__container {
+  &__inner {
     position: relative;
     width: 80px;
     height: 32px;
@@ -395,7 +397,7 @@
   }
 
   &:hover {
-    .theme-toggle__container {
+    .theme-toggle__inner {
       border-color: rgba(255, 255, 255, 0.8);
     }
 
@@ -477,10 +479,9 @@
   }
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .header {
-    &__container {
+    &__inner {
       padding: 20px 20px;
     }
 

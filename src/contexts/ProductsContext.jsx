@@ -3,10 +3,35 @@ import productsData from "@/data/products.json"
 
 const ProductsContext = createContext(undefined)
 
+// Функция для нормализации продукта
+const normalizeProduct = (product) => {
+  return {
+    ...product,
+    platforms: Array.isArray(product.platforms) ? product.platforms : [],
+    tags: Array.isArray(product.tags) ? product.tags : [],
+    rating: product.rating || 0,
+    reviews: Array.isArray(product.reviews) ? product.reviews : [],
+    isFavorite: Boolean(product.isFavorite),
+    isHot: Boolean(product.isHot),
+    chatCount: product.chatCount || "1",
+    brand: product.brand || "HOLYTRAFF",
+    avatar: product.avatar || "/images/ava-default.png"
+  }
+}
+
 export function ProductsProvider({ children }) {
   const [products, setProducts] = useState(() => {
-    const savedProducts = localStorage.getItem('marketplace-products')
-    return savedProducts ? JSON.parse(savedProducts) : productsData
+    try {
+      const savedProducts = localStorage.getItem('marketplace-products')
+      if (savedProducts) {
+        const parsedProducts = JSON.parse(savedProducts)
+        return parsedProducts.map(normalizeProduct)
+      }
+      return productsData.map(normalizeProduct)
+    } catch (error) {
+      console.error("Error loading products from localStorage:", error)
+      return productsData.map(normalizeProduct)
+    }
   })
 
   useEffect(() => {
@@ -14,20 +39,22 @@ export function ProductsProvider({ children }) {
   }, [products])
 
   const addProduct = (newProduct) => {
-    const productWithId = {
-      ...newProduct,
-      id: Date.now(), // Простой способ генерации уникального ID
-      rating: 0,
-      reviews: [],
-      isFavorite: false,
-      isHot: false,
-      // Убеждаемся, что platforms и tags являются массивами
-      platforms: Array.isArray(newProduct.platforms) ? newProduct.platforms : [],
-      tags: Array.isArray(newProduct.tags) ? newProduct.tags : []
+    try {
+      const productWithId = normalizeProduct({
+        ...newProduct,
+        id: Date.now(), // Простой способ генерации уникального ID
+        rating: 0,
+        reviews: [],
+        isFavorite: false,
+        isHot: false
+      })
+      
+      setProducts(currentProducts => [productWithId, ...currentProducts])
+      return productWithId
+    } catch (error) {
+      console.error("Error adding product:", error)
+      throw error
     }
-    
-    setProducts(currentProducts => [productWithId, ...currentProducts])
-    return productWithId
   }
 
   const updateProduct = (id, updates) => {

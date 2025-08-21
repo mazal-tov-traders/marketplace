@@ -6,7 +6,7 @@ export const Footer = () => {
 
   return (
     <footer className="footer">
-      <div className="footer__container">
+      <div className="footer page-width">
         {/* Top Section - Contact and Social Media */}
         <div className="footer__top">
           <div className="footer__content">

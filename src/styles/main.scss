@@ -2,6 +2,7 @@
 @use './fonts' as *;
 @use './components/header' as *;
 @use './components/footer' as *;
+@use './components/categories-navigation' as *;
 @use './sections/hero' as *;
 @use './components/product-card' as *;
 @use './components/product-page' as *;
@@ -77,19 +78,36 @@ body {
   line-height: 1.5;
 }
 
-.container{
+
+
+a{
+  text-decoration: none;
+}
+
+// Global page width container
+.page-width {
   max-width: 1800px;
   width: 100%;
   margin: 0 auto;
   padding: 0 35px;
 }
 
-@media screen and (max-width: 768px) {
-  .container{
-    padding: 0 15px;
+@media screen and (max-width: 1200px) {
+  .page-width {
+    max-width: 1200px;
+    padding: 0 30px;
   }
 }
 
-a{
-  text-decoration: none;
+@media screen and (max-width: 768px) {
+  .page-width {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page-width {
+    padding: 0 15px;
+  }
 }

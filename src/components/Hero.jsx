@@ -6,7 +6,7 @@ export const Hero = () => {
 
   return (
     <section className="hero">
-      <div className="hero__container">
+      <div className="hero__inner page-width">
       {/* Back button */}
       <div className="hero__back">
         <Link to="/" className="hero__back-link">

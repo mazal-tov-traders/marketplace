@@ -7,7 +7,7 @@ export const ThemeToggle = ({ theme, onToggle }) => {
       className="theme-toggle"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
-      <div className="theme-toggle__container">
+      <div className="theme-toggle__inner">
         <div className={`theme-toggle__icon ${theme === 'light' ? 'theme-toggle__icon--active' : ''}`}>
           <img src={"/images/sun-icon.svg"} alt="sun" className="theme-toggle__sun" />
         </div>

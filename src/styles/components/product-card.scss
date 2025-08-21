@@ -117,7 +117,7 @@
     font-weight: 500;
     color: #fff;
     min-width: 18px;
-    padding: 1px 1px 1px 1px;
+    padding: 1px;
     height: auto;
     border-radius: 50%;
     background: #000000;
@@ -222,7 +222,6 @@
     text-transform: uppercase;
     color: #000;
     margin: 0 0 12px 0;
-
   }
 
   &__type-subtitle {
@@ -267,7 +266,7 @@
     font-family: "Arial";
     font-weight: 500;
     font-size: 50px;
-    line-height: 110.00000000000001%;
+    line-height: 110%;
     text-transform: uppercase;
 
     &--hot {

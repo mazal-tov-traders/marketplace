@@ -52,7 +52,7 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
 
           <button 
             className="product-card__favorite-btn"
-            onClick={() => onToggleFavorite(product)}
+            onClick={() => onToggleFavorite(product.id)}
           >
             <Heart 
               className={`product-card__favorite-icon ${product.isFavorite ? 'product-card__favorite-icon--active' : ''}`}
@@ -107,15 +107,14 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
           <p className="product-card__type-subtitle">
             {t(`product.subtypes.${product.subtype}`) || product.subtype || "Поодинокий банер"}
           </p>
-          <div className="product-card__platforms">
+        </div>
+
+        <div className="product-card__platforms">
           {Array.isArray(product.platforms) && product.platforms.length > 0 
             ? product.platforms.join(", ") 
             : "FB, ASO, TikTok, UAC та інші"
           }
         </div>
-        </div>
-
-        
 
         <div className="product-card__pricing">
           {product.oldPrice && (

@@ -46,7 +46,7 @@ export const Header = () => {
 
   return (
     <header className="header">
-      <div className="header__container">
+      <div className="header__inner page-width">
         {/* Logo */}
         <Link to="/" className="header__logo">
           <img src={"/images/logo.svg"} alt="logo" className="header__logo-image" />
@@ -165,7 +165,7 @@ export const Header = () => {
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            <div className="header__mobile-theme-toggle__container">
+            <div className="header__mobile-theme-toggle__inner">
               <div className={`header__mobile-theme-toggle__icon ${theme === 'light' ? 'header__mobile-theme-toggle__icon--active' : ''}`}>
                 <img src={"/images/sun-icon.svg"} alt="sun" className="header__mobile-theme-toggle__sun" />
               </div>

@@ -87,7 +87,37 @@ const resources = {
         sports: "Sports & Outdoors",
         books: "Books & Media",
         other: "Other"
-      }
+      },
+      navigation: {
+        categories: "CATEGORIES",
+        allAds: "ALL ADS",
+        myAds: "MY ADS",
+        reviews: "REVIEWS ON YOUR PRODUCT",
+        purchased: "PURCHASED PRODUCTS",
+        payment: "PAYMENT/SUBSCRIPTION",
+        chats: "CHATS",
+        searchPlaceholder: "Search..."
+      },
+             categories: {
+         applications: "Applications",
+         igamingCreatives: "Creatives for iGaming",
+         builders: "Builders",
+         whiteLandings: "White Landings",
+         directLandings: "Direct Landing Pages",
+         vacancies: "Vacancies",
+         merch: "Merch",
+         stand: "Stand",
+         accounts: "Accounts",
+         articles: "Articles",
+         "3d": "3D",
+         test1: "Test1",
+         test2: "Test2",
+         staticCreatives: "Static Creatives",
+         videoCreatives: "Video Creatives",
+         hostess: "Hostess",
+         merchDevelopment: "Merch Development",
+         standDevelopment: "Stand Development"
+       }
     }
   },
   ua: {
@@ -167,14 +197,42 @@ const resources = {
         backToHome: 'Повернутися на Головну',
         backToProducts: 'Повернутися до Продуктів'
       },
-      categories: {
-        all: "Всі Категорії",
-        electronics: "Електроніка",
-        fashion: "Мода",
-        home: "Головна та Сад",
-        sports: "Спорт та Відпочинок",
-        books: "Книги та Медіа",
-        other: "Інше"
+               categories: {
+           all: "Всі Категорії",
+           electronics: "Електроніка",
+           fashion: "Мода",
+           home: "Головна та Сад",
+           sports: "Спорт та Відпочинок",
+           books: "Книги та Медіа",
+           other: "Інше",
+           applications: "ЗАСТОСУНКИ",
+           igamingCreatives: "КРЕАТИВИ ДЛЯ IGAMING",
+           builders: "БІЛДЕРИ",
+           whiteLandings: "White Landings",
+           directLandings: "Прямі Landing Pages",
+           vacancies: "Вакансії",
+           merch: "Мерч",
+           stand: "Стенд",
+           accounts: "Аккаунти",
+           articles: "Статті",
+           "3d": "3D",
+           test1: "Тест1",
+           test2: "Тест2",
+           staticCreatives: "Статичні креативи",
+           videoCreatives: "Відео-креативи",
+           hostess: "Хостес",
+           merchDevelopment: "Розробка мерча",
+           standDevelopment: "Розробка стендів"
+         },
+      navigation: {
+        categories: "КАТЕГОРІЇ",
+        allAds: "УСІ ОГОЛОШЕННЯ",
+        myAds: "МОЇ ОГОЛОШЕННЯ",
+        reviews: "ВІДГУКИ НА ВАШ ПРОДУКТ",
+        purchased: "ПРИДБАНІ ПРОДУКТИ",
+        payment: "ОПЛАТА/ПІДПИСКА",
+        chats: "ЧАТИ",
+        searchPlaceholder: "Пошук..."
       }
     }
   }

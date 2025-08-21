@@ -41,7 +41,7 @@
     }
   }
 
-  .hero__container {
+  .hero__inner {
     position: relative;
     max-width: 100%;
     width: 100%;
@@ -131,7 +131,7 @@
       }
     }
 
-    .hero__container {
+    .hero__inner {
       max-width: 720px;
       padding: 0 15px;
       position: relative;
@@ -185,7 +185,7 @@
       }
     }
 
-    .hero__container {
+    .hero__inner {
       max-width: 1800px;
       padding: 0 20px;
     }
