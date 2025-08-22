@@ -9,6 +9,7 @@ const resources = {
         products: 'CREATE AD',
         cart: 'Cart',
         back: 'BACK',
+        backUa: 'Назад',
         createAd: 'CREATE AD',
         profile: 'PROFILE',
         favorites: 'FAVORITES',
@@ -73,6 +74,7 @@ const resources = {
       },
       pages: {
         addProduct: 'Add New Product',
+        createAnnouncement: 'CREATE ANNOUNCEMENT',
         profile: 'Profile',
         favorites: 'Favorites',
         contacts: 'Contact Us',
@@ -97,6 +99,41 @@ const resources = {
         payment: "PAYMENT/SUBSCRIPTION",
         chats: "CHATS",
         searchPlaceholder: "Search..."
+      },
+      form: {
+        describeInDetail: "DESCRIBE IN DETAIL",
+        enterName: "Enter name*",
+        namePlaceholder: "Enter announcement name",
+        category: "Category*",
+        selectCategory: "CATEGORY",
+        subcategory: "Subcategory",
+        photoVideo: "PHOTO/VIDEO",
+        photoInstructions: "The first photo will be on the announcement cover. Drag to change photo order",
+        addFiles: "Add files",
+        description: "DESCRIPTION",
+        descriptionPlaceholder: "Describe your product in detail",
+        descriptionMinLength: "Enter at least 40 characters",
+        price: "Price",
+        enterPrice: "Enter price*",
+        negotiablePrice: "Negotiable price",
+        autoRenewal: "AUTO-RENEWAL",
+        autoRenewalInfo: "The announcement will be deactivated in 30 days",
+        preview: "PREVIEW",
+        publish: "PUBLISH",
+        publishing: "Publishing..."
+      },
+      validation: {
+        nameMinLength: "Enter at least 16 characters",
+        categoryRequired: "Select a category",
+        descriptionMinLength: "Enter at least 40 characters",
+        priceRequired: "Enter price or select negotiable",
+        filesRequired: "Add at least one photo/video"
+      },
+      success: {
+        productCreated: "Announcement created successfully!"
+      },
+      error: {
+        productCreation: "Error creating announcement"
       },
              categories: {
          applications: "Applications",
@@ -191,6 +228,7 @@ const resources = {
       },
       pages: {
         addProduct: 'Додати Новий Продукт',
+        createAnnouncement: 'СТВОРИТИ ОГОЛОШЕННЯ',
         profile: 'Профіль',
         favorites: 'Улюблені',
         contacts: 'Зв\'язатися з Нами',
@@ -233,6 +271,41 @@ const resources = {
         payment: "ОПЛАТА/ПІДПИСКА",
         chats: "ЧАТИ",
         searchPlaceholder: "Пошук..."
+      },
+      form: {
+        describeInDetail: "ОПИШІТЬ У ПОДРОБИЦЯХ",
+        enterName: "Вкажіть назву*",
+        namePlaceholder: "Введіть назву оголошення",
+        category: "Категорія*",
+        selectCategory: "КАТЕГОРІЯ",
+        subcategory: "Підкатегорія",
+        photoVideo: "ФОТО/ВІДЕО",
+        photoInstructions: "Перше фото буде на обкладинці оголошення. Перетягніть, щоб змінити порядок фото",
+        addFiles: "Додати файли",
+        description: "ОПИС",
+        descriptionPlaceholder: "Опишіть ваш продукт детально",
+        descriptionMinLength: "Введіть щонайменше 40 символів",
+        price: "Ціна",
+        enterPrice: "Вкажіть ціну*",
+        negotiablePrice: "Ціна договірна",
+        autoRenewal: "АВТОПРОДОВЖЕННЯ",
+        autoRenewalInfo: "Оголошення буде деактивовано через 30 днів",
+        preview: "ПОПЕРЕДНІЙ ПЕРЕГЛЯД",
+        publish: "ОПУБЛІКУВАТИ",
+        publishing: "Публікація..."
+      },
+      validation: {
+        nameMinLength: "Введіть щонайменше 16 символів",
+        categoryRequired: "Оберіть категорію",
+        descriptionMinLength: "Введіть щонайменше 40 символів",
+        priceRequired: "Вкажіть ціну або оберіть договірну",
+        filesRequired: "Додайте хоча б одне фото/відео"
+      },
+      success: {
+        productCreated: "Оголошення створено успішно!"
+      },
+      error: {
+        productCreation: "Помилка створення оголошення"
       }
     }
   }
