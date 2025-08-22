@@ -102,10 +102,13 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
       <div className="product-card__footer">
         <div className="product-card__type">
           <h3 className="product-card__type-title">
-            {t(`product.types.${product.type}`) || product.type || "СТАТИЧНІ КРЕАТИВИ"}
+            {product.name || "Назва продукту"}
           </h3>
           <p className="product-card__type-subtitle">
-            {t(`product.subtypes.${product.subtype}`) || product.subtype || "Поодинокий банер"}
+            {t(`categories.${product.category}`) || product.category || "Категорія"}
+            {product.subcategory && (
+              <span> • {t(`categories.${product.subcategory}`) || product.subcategory}</span>
+            )}
           </p>
         </div>
 
@@ -117,12 +120,19 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
         </div>
 
         <div className="product-card__pricing">
-          {product.oldPrice && (
-            <span className="product-card__old-price">{product.oldPrice}</span>
+          {product.oldPrice && product.oldPrice !== product.price && (
+            <span className="product-card__old-price">
+              {product.oldPrice} {product.currency}
+            </span>
           )}
           <span className={`product-card__current-price ${product.isHot ? 'product-card__current-price--hot' : ''}`}>
-            {product.price}
+            {product.negotiablePrice ? "Договірна" : `${product.price} ${product.currency}`}
           </span>
+          {product.negotiablePrice && (
+            <div className="product-card__negotiable-note">
+              Ціна договірна
+            </div>
+          )}
         </div>
 
         <button 

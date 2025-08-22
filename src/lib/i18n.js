@@ -36,6 +36,13 @@ const resources = {
           collection: 'Banner Collection'
         }
       },
+      products: {
+        title: 'All Products',
+        empty: 'No products found',
+        emptyDescription: 'Try changing your search query or category',
+        createFirst: 'Or create the first product!',
+        searchResults: 'Search results for'
+      },
       cart: {
         title: 'Shopping Cart',
         empty: 'Your cart is empty',
@@ -113,7 +120,7 @@ const resources = {
         description: "DESCRIPTION",
         descriptionPlaceholder: "Describe your product in detail",
         descriptionMinLength: "Enter at least 40 characters",
-        price: "Price",
+       
         enterPrice: "Enter price*",
         negotiablePrice: "Negotiable price",
         autoRenewal: "AUTO-RENEWAL",
@@ -189,6 +196,13 @@ const resources = {
           pack: 'Пакет банерів',
           collection: 'Колекція банерів'
         }
+      },
+      products: {
+        title: 'Всі товари',
+        empty: 'Товари не знайдено',
+        emptyDescription: 'Спробуйте змінити пошуковий запит або категорію',
+        createFirst: 'Або створіть перший товар!',
+        searchResults: 'Результати пошуку для'
       },
       cart: {
         title: 'Кошик Покупок',

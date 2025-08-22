@@ -1,14 +1,16 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useContext, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { ArrowLeft, Upload, Paperclip, X, ChevronRight } from "lucide-react"
+import { Upload, Paperclip, X } from "lucide-react"
 import { Hero } from "../components/Hero"
+import { ProductsContext } from "../contexts/ProductsContext"
 
 export default function AddProduct() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const fileInputRef = useRef(null)
-  
+  const { addProduct } = useContext(ProductsContext)
+
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -19,12 +21,14 @@ export default function AddProduct() {
     negotiablePrice: true,
     autoRenewal: false
   })
-  
+
   const [files, setFiles] = useState([])
+  const [filePreviews, setFilePreviews] = useState([])
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [expandedCategories, setExpandedCategories] = useState({})
   const [isCategoriesExpanded, setIsCategoriesExpanded] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
 
   // Категории из CategoriesNavigation.jsx
   const categoriesData = [
@@ -129,29 +133,47 @@ export default function AddProduct() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
-    
+
     // Сброс ошибок при изменении
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }))
     }
-    
+
     // Сброс подкатегории при смене категории
     if (name === 'category') {
       setFormData(prev => ({ ...prev, subcategory: "" }))
     }
   }
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const uploadedFiles = Array.from(e.target.files)
     const validFiles = uploadedFiles.filter(file => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/')
       const isValidSize = file.size <= 10 * 1024 * 1024 // 10MB максимум
       return isValidType && isValidSize
     })
-    
+
     const newFiles = [...files, ...validFiles].slice(0, 5) // Максимум 5 файлов
     setFiles(newFiles)
-    
+
+    // Создаем preview для новых файлов
+    const newPreviews = []
+    for (const file of validFiles) {
+      try {
+        const preview = await new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onload = () => resolve(reader.result)
+          reader.readAsDataURL(file)
+        })
+        newPreviews.push(preview)
+      } catch (error) {
+        console.error('Error creating preview:', error)
+        newPreviews.push("/images/placeholder.svg")
+      }
+    }
+
+    setFilePreviews(prev => [...prev, ...newPreviews].slice(0, 5))
+
     // Сброс ошибки файлов при успешной загрузке
     if (validFiles.length > 0 && errors.files) {
       setErrors(prev => ({ ...prev, files: null }))
@@ -160,6 +182,7 @@ export default function AddProduct() {
 
   const removeFile = (index) => {
     setFiles(files.filter((_, i) => i !== index))
+    setFilePreviews(filePreviews.filter((_, i) => i !== index))
   }
 
   const reorderFiles = (fromIndex, toIndex) => {
@@ -177,17 +200,17 @@ export default function AddProduct() {
   const handleDrop = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    
+
     const droppedFiles = Array.from(e.dataTransfer.files)
     const validFiles = droppedFiles.filter(file => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/')
       const isValidSize = file.size <= 10 * 1024 * 1024 // 10MB максимум
       return isValidType && isValidSize
     })
-    
+
     const newFiles = [...files, ...validFiles].slice(0, 5)
     setFiles(newFiles)
-    
+
     if (validFiles.length > 0 && errors.files) {
       setErrors(prev => ({ ...prev, files: null }))
     }
@@ -195,53 +218,52 @@ export default function AddProduct() {
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (formData.name.length < 16) {
       newErrors.name = t('validation.nameMinLength', 'Введіть щонайменше 16 символів')
     }
-    
+
     if (!formData.category) {
       newErrors.category = t('validation.categoryRequired', 'Оберіть категорію')
     }
-    
+
     if (formData.description.length < 40) {
       newErrors.description = t('validation.descriptionMinLength', 'Введіть щонайменше 40 символів')
     }
-    
+
     if (!formData.price && !formData.negotiablePrice) {
       newErrors.price = t('validation.priceRequired', 'Вкажіть ціну або оберіть договірну')
     }
-    
+
     if (files.length === 0) {
       newErrors.files = t('validation.filesRequired', 'Додайте хоча б одне фото/відео')
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     if (!validateForm()) {
       return
     }
-    
+
     setIsSubmitting(true)
-    
+
     try {
-      // Здесь будет логика отправки формы
-      console.log("Form data:", formData)
-      console.log("Files:", files)
-      
-      // Симуляция API вызова
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      // Добавляем продукт через контекст
+      const newProduct = await addProduct(formData, files)
+
+      console.log("Product added successfully:", newProduct)
       alert(t('success.productCreated', 'Оголошення створено успішно!'))
+
+      // Перенаправляем на главную страницу
       navigate("/")
     } catch (error) {
       console.error("Error creating product:", error)
-      alert(t('error.productCreation', 'Помилка створення оголошення'))
+      alert(t('error.productCreation', 'Помилка створення оголошення: ') + error.message)
     } finally {
       setIsSubmitting(false)
     }
@@ -250,19 +272,26 @@ export default function AddProduct() {
   const selectedCategory = categoriesData.find(cat => cat.id === formData.category)
   const hasSubcategories = selectedCategory?.hasSubcategories
 
+  // Отслеживаем размер экрана для мобильной адаптации
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+
+
   return (
     <div className="add-product">
       <Hero />
-      <div className="add-product__container">
+      <div className="add-product__inner page-width">
         {/* Header */}
         <div className="add-product__header">
-          <button
-            onClick={() => navigate("/")}
-            className="add-product__header-back-btn"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            {t('nav.back', 'Назад')}
-          </button>
           <h1 className="add-product__header-title">
             {t('pages.createAnnouncement', 'СТВОРИТИ ОГОЛОШЕННЯ')}
           </h1>
@@ -274,7 +303,7 @@ export default function AddProduct() {
             <h2 className="add-product__section-title">
               {t('form.describeInDetail', 'ОПИШІТЬ У ПОДРОБИЦЯХ')}
             </h2>
-            
+
             <div className="add-product__section-content">
               {/* Назва */}
               <div>
@@ -299,7 +328,7 @@ export default function AddProduct() {
                 <label className="add-product__field-label">
                   {t('form.category', 'Категорія*')}
                 </label>
-                
+
                 <div className="add-product__categories">
                   {/* Кнопка для свертывания/разворачивания всего списка */}
                   <button
@@ -310,7 +339,9 @@ export default function AddProduct() {
                     <span className="add-product__categories-toggle-label">
                       {t('form.selectCategory', 'КАТЕГОРІЯ')}
                     </span>
-                    <ChevronRight
+                    <img
+                      src="/images/drop-down-icon.svg"
+                      alt="Toggle categories"
                       className={`add-product__categories-toggle-icon ${isCategoriesExpanded ? 'expanded' : ''}`}
                     />
                   </button>
@@ -335,7 +366,9 @@ export default function AddProduct() {
                               {category.label}
                             </span>
                             {category.hasSubcategories && (
-                              <ChevronRight
+                              <img
+                                src="/images/drop-down-icon.svg"
+                                alt="Expand category"
                                 className={`add-product__expand-icon ${expandedCategories[category.id] ? 'expanded' : ''}`}
                               />
                             )}
@@ -362,7 +395,7 @@ export default function AddProduct() {
                     </div>
                   )}
                 </div>
-                
+
                 {errors.category && (
                   <p className="add-product__field-error">{errors.category}</p>
                 )}
@@ -375,13 +408,18 @@ export default function AddProduct() {
             <h2 className="add-product__section-title">
               {t('form.photoVideo', 'ФОТО/ВІДЕО')}
             </h2>
-            
+
             <div className="add-product__section-content">
               <p className="add-product__file-upload-instructions">
                 {t('form.photoInstructions', 'Перше фото буде на обкладинці оголошення. Перетягніть, щоб змінити порядок фото')}
+                {isMobile && (
+                  <span className="mobile-info">
+                    {files.length < 4 ? ` (Можна додати ще ${4 - files.length} фото)` : ' (Максимум фото досягнуто)'}
+                  </span>
+                )}
               </p>
-              
-              <div 
+
+              <div
                 className="add-product__file-upload-grid"
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
@@ -409,29 +447,67 @@ export default function AddProduct() {
                 </div>
 
                 {/* Слоты для файлов */}
-                {Array.from({ length: 4 }, (_, index) => (
-                  <div key={index} className={`add-product__file-upload-slot ${files[index] ? 'file-preview' : 'empty'}`}>
-                    {files[index] ? (
-                      <>
-                        <img
-                          src={URL.createObjectURL(files[index])}
-                          alt={`File ${index + 1}`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeFile(index)}
-                          className="add-product__file-upload-remove-btn remove-btn"
-                        >
-                          <X />
-                        </button>
-                      </>
-                    ) : (
-                      <div className="placeholder"></div>
-                    )}
-                  </div>
-                ))}
+                {Array.from({ length: 4 }, (_, index) => {
+                  // Показываем все заполненные слоты + минимум 1 пустой слот
+                  let shouldShowSlot = true;
+
+                  if (isMobile) {
+                    // На мобильных: показываем все заполненные слоты + 1 пустой
+                    if (index >= files.length + 1) {
+                      shouldShowSlot = false;
+                    }
+                  } else {
+                    // На десктопе: показываем все слоты
+                    if (index >= 4) {
+                      shouldShowSlot = false;
+                    }
+                  }
+
+                  // Отладочная информация
+                  console.log(`Slot ${index}: files.length=${files.length}, isMobile=${isMobile}, shouldShowSlot=${shouldShowSlot}`);
+
+                  if (!shouldShowSlot) return null;
+
+                  return (
+                    <div key={index} className={`add-product__file-upload-slot ${files[index] ? 'file-preview' : 'empty'}`}>
+                      {files[index] ? (
+                        <>
+                          <img
+                            src={filePreviews[index] || "/images/placeholder.svg"}
+                            alt={`File ${index + 1}`}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index)}
+                            className="add-product__file-upload-remove-btn remove-btn"
+                          >
+                            <X />
+                          </button>
+                        </>
+                      ) : (
+                        <div className="placeholder">
+                          {isMobile ? (
+                            <button
+                              type="button"
+                              onClick={() => fileInputRef.current?.click()}
+                              className="placeholder-add-btn"
+                            >
+                              <X className="placeholder-add-icon" />
+                            </button>
+                          ) : (
+                            <img
+                              src="/images/img-icon.svg"
+                              alt="Add image"
+                              className="placeholder-icon"
+                            />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              
+
               {errors.files && (
                 <p className="add-product__field-error">{errors.files}</p>
               )}
@@ -443,7 +519,7 @@ export default function AddProduct() {
             <h2 className="add-product__section-title">
               {t('form.description', 'ОПИС')}
             </h2>
-            
+
             <div className="add-product__section-content">
               <div className="add-product__description">
                 <textarea
@@ -458,11 +534,11 @@ export default function AddProduct() {
                   {formData.description.length}/9000
                 </div>
               </div>
-              
+
               <p className="add-product__description-hint">
                 {t('form.descriptionMinLength', 'Введіть щонайменше 40 символів')}
               </p>
-              
+
               {errors.description && (
                 <p className="add-product__field-error">{errors.description}</p>
               )}
@@ -471,10 +547,7 @@ export default function AddProduct() {
 
           {/* Ціна */}
           <div className="add-product__section">
-            <h2 className="add-product__section-title">
-              {t('form.price', 'Ціна')}
-            </h2>
-            
+
             <div className="add-product__section-content">
               <div className="add-product__price">
                 {/* Поле ціни */}
@@ -500,9 +573,8 @@ export default function AddProduct() {
                       key={currency.code}
                       type="button"
                       onClick={() => setFormData(prev => ({ ...prev, currency: currency.code }))}
-                      className={`add-product__price-currency-btn ${
-                        formData.currency === currency.code ? 'active' : ''
-                      }`}
+                      className={`add-product__price-currency-btn ${formData.currency === currency.code ? 'active' : ''
+                        }`}
                     >
                       {currency.label}
                     </button>
@@ -523,7 +595,7 @@ export default function AddProduct() {
                   </label>
                 </div>
               </div>
-              
+
               {errors.price && (
                 <p className="add-product__field-error">{errors.price}</p>
               )}
@@ -532,22 +604,25 @@ export default function AddProduct() {
 
           {/* АВТОПРОДОВЖЕННЯ */}
           <div className="add-product__section">
-            <h2 className="add-product__section-title">
-              {t('form.autoRenewal', 'АВТОПРОДОВЖЕННЯ')}
-            </h2>
-            
+            <div className="add-product__auto-renewal-toggle">
+              <h2 className="add-product__section-title">
+                {t('form.autoRenewal', 'АВТОПРОДОВЖЕННЯ')}
+
+              </h2>
+
+              <div
+                className={`toggle-switch ${formData.autoRenewal ? 'active' : ''}`}
+                onClick={() => setFormData(prev => ({ ...prev, autoRenewal: !prev.autoRenewal }))}
+              /></div>
             <div className="add-product__section-content">
-              <div className="add-product__auto-renewal-toggle">
-                <div 
-                  className={`toggle-switch ${formData.autoRenewal ? 'active' : ''}`}
-                  onClick={() => setFormData(prev => ({ ...prev, autoRenewal: !prev.autoRenewal }))}
-                />
-                <span className="add-product__auto-renewal-toggle-info">
-                  {t('form.autoRenewalInfo', 'Оголошення буде деактивовано через 30 днів')}
-                </span>
-              </div>
+
+              <span className="add-product__auto-renewal-toggle-info">
+                {t('form.autoRenewalInfo', 'Оголошення буде деактивовано через 30 днів')}
+              </span>
+
             </div>
           </div>
+
 
           {/* Кнопки */}
           <div className="add-product__buttons">

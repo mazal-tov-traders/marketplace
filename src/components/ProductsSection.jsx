@@ -42,8 +42,9 @@ export const ProductsSection = () => {
       <section className="products-section">
         <div className="page-width">
           <div className="products-section__empty">
-            <h3>Товари не знайдено</h3>
-            <p>Спробуйте змінити пошуковий запит або категорію</p>
+            <h3>{t('products.empty', 'Товари не знайдено')}</h3>
+            <p>{t('products.emptyDescription', 'Спробуйте змінити пошуковий запит або категорію')}</p>
+            <p>{t('products.createFirst', 'Або створіть перший товар!')}</p>
           </div>
         </div>
       </section>
@@ -53,6 +54,17 @@ export const ProductsSection = () => {
   return (
     <section className="products-section">
       <div className="page-width">
+        <div className="products-section__header">
+          <h2 className="products-section__title">
+            {t('products.title', 'Всі товари')} ({filteredProducts.length})
+          </h2>
+          {searchTerm && (
+            <p className="products-section__search-info">
+              {t('products.searchResults', 'Результати пошуку для')}: "{searchTerm}"
+            </p>
+          )}
+        </div>
+        
         <div className="products-section__grid">
           {productsWithFavorites.map((product) => (
             <ProductCard

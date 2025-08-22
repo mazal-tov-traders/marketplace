@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
 import productsData from "@/data/products.json"
+import { addProduct as addProductService, updateProduct as updateProductService, deleteProduct as deleteProductService } from "@/lib/productService"
 
-const ProductsContext = createContext(undefined)
+export const ProductsContext = createContext(undefined)
 
 // Функция для нормализации продукта
 const normalizeProduct = (product) => {
@@ -38,19 +39,37 @@ export function ProductsProvider({ children }) {
     localStorage.setItem('marketplace-products', JSON.stringify(products))
   }, [products])
 
-  const addProduct = (newProduct) => {
-    try {
-      const productWithId = normalizeProduct({
-        ...newProduct,
-        id: Date.now(), // Простой способ генерации уникального ID
-        rating: 0,
-        reviews: [],
-        isFavorite: false,
-        isHot: false
+  // Очистка blob URL'ов при размонтировании
+  useEffect(() => {
+    return () => {
+      // Очищаем все blob URL'ы при размонтировании
+      products.forEach(product => {
+        if (product.image && product.image.startsWith('blob:')) {
+          URL.revokeObjectURL(product.image)
+        }
+        if (product.images && Array.isArray(product.images)) {
+          product.images.forEach(img => {
+            if (img && img.startsWith('blob:')) {
+              URL.revokeObjectURL(img)
+            }
+          })
+        }
       })
+    }
+  }, [products])
+
+  const addProduct = async (newProduct, files = []) => {
+    try {
+      // Используем сервис для добавления продукта
+      const result = await addProductService(newProduct, files)
       
-      setProducts(currentProducts => [productWithId, ...currentProducts])
-      return productWithId
+      if (result.success) {
+        // Обновляем локальное состояние
+        setProducts(currentProducts => [result.product, ...currentProducts])
+        return result.product
+      } else {
+        throw new Error(result.message || 'Помилка додавання продукту')
+      }
     } catch (error) {
       console.error("Error adding product:", error)
       throw error
