@@ -85,6 +85,36 @@ export const Footer = () => {
             </div>
           </div>
         </div>
+        <div className="footer__bottom-text">
+          <p className="footer__bottom-copyright">HOLYTRAFF 2025. All rights reserved.</p>
+          <ul className="footer__bottom-links">
+            <li className="footer__bottom-links-item">
+              <a href="/privacy" className="footer__bottom-links-link">
+                {t('footer.privacy', 'Privacy')}
+              </a>
+            </li>
+            <li className="footer__bottom-links-item">
+              <a href="/policy" className="footer__bottom-links-link">
+                {t('footer.policy', 'Policy')}
+              </a>
+            </li>
+            <li className="footer__bottom-links-item">
+              <a href="/faq" className="footer__bottom-links-link">
+                {t('footer.faq', 'FAQ')}
+              </a>
+            </li>
+            <li className="footer__bottom-links-item">
+              <a href="/help-center" className="footer__bottom-links-link">
+                {t('footer.helpCenter', 'Help Center')}
+              </a>
+            </li>
+            <li className="footer__bottom-links-item">
+              <a href="/about" className="footer__bottom-links-link">
+                {t('footer.about', 'About')}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   )

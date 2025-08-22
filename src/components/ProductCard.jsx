@@ -70,11 +70,7 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
               alt={product.name}
               className="product-card__image"
               onError={(e) => {
-                console.log("Image failed to load:", product.image)
                 e.target.src = "/images/golden-mine.jpg"
-              }}
-              onLoad={(e) => {
-                console.log("Image loaded successfully:", product.image)
               }}
             />
           </div>
@@ -126,7 +122,7 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite, onChatClic
             </span>
           )}
           <span className={`product-card__current-price ${product.isHot ? 'product-card__current-price--hot' : ''}`}>
-            {product.negotiablePrice ? "Договірна" : `${product.price} ${product.currency}`}
+            {product.price} {product.currency}
           </span>
           {product.negotiablePrice && (
             <div className="product-card__negotiable-note">

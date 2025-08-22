@@ -72,7 +72,8 @@ export function ProductsProvider({ children }) {
       }
     } catch (error) {
       console.error("Error adding product:", error)
-      throw error
+      // Возвращаем ошибку вместо throw, чтобы AddProduct мог её обработать
+      throw new Error(error.message || 'Помилка додавання продукту')
     }
   }
 

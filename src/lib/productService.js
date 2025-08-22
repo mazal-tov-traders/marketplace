@@ -34,22 +34,22 @@ export const addProduct = async (productData, files) => {
   try {
     // Конвертируем файлы в base64 для хранения
     const processFiles = async () => {
-      if (files.length === 0) {
-        return {
-          image: "/images/placeholder.svg",
-          images: []
-        }
-      }
+             if (files.length === 0) {
+         return {
+           image: "/images/golden-mine.jpg", // Используем существующий файл как fallback
+           images: []
+         }
+       }
 
       const processedImages = []
       for (const file of files) {
         try {
           const base64 = await convertFileToBase64(file)
           processedImages.push(base64)
-        } catch (error) {
-          console.error('Error processing file:', error)
-          processedImages.push("/images/placeholder.svg")
-        }
+                 } catch (error) {
+           console.error('Error processing file:', error)
+           processedImages.push("/images/golden-mine.jpg")
+         }
       }
 
       return {
@@ -60,84 +60,83 @@ export const addProduct = async (productData, files) => {
 
     const { image, images } = await processFiles()
 
-    try {
-      // Отправляем запрос на API сервер
-      const response = await fetch(`${API_BASE_URL}/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          productData,
-          files: [image, ...images.slice(1)] // Первое изображение как основное
-        })
-      })
+         // Сначала пробуем API, если недоступен - сохраняем локально
+     let apiSuccess = false
+     
+     try {
+       // Отправляем запрос на API сервер
+       const response = await fetch(`${API_BASE_URL}/products`, {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+           productData,
+           files: [image, ...images.slice(1)] // Первое изображение как основное
+         })
+       })
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
+       if (response.ok) {
+         const result = await response.json()
+         
+         if (result.success) {
+           // Также сохраняем в localStorage для совместимости
+           const existingProducts = JSON.parse(localStorage.getItem('marketplace-products') || '[]')
+           const updatedProducts = [...existingProducts, result.product]
+           localStorage.setItem('marketplace-products', JSON.stringify(updatedProducts))
 
-      const result = await response.json()
-      
-      if (result.success) {
-        // Также сохраняем в localStorage для совместимости
-        const existingProducts = JSON.parse(localStorage.getItem('marketplace-products') || '[]')
-        const updatedProducts = [...existingProducts, result.product]
-        localStorage.setItem('marketplace-products', JSON.stringify(updatedProducts))
+           return {
+             success: true,
+             product: result.product,
+             message: 'Продукт успішно додано!'
+           }
+         }
+       }
+     } catch (apiError) {
+       console.log('API недоступен, сохраняем локально:', apiError.message)
+     }
 
-        return {
-          success: true,
-          product: result.product,
-          message: 'Продукт успішно додано!'
-        }
-      } else {
-        throw new Error(result.error || 'Помилка додавання продукту')
-      }
-    } catch (apiError) {
-      console.error('API Error:', apiError)
-      
-      // Fallback: сохраняем локально если API недоступен
-      const newProduct = {
-        id: Date.now(),
-        name: productData.name,
-        description: productData.description,
-        price: productData.negotiablePrice ? null : productData.price,
-        currency: productData.negotiablePrice ? null : productData.currency,
-        negotiablePrice: productData.negotiablePrice,
-        oldPrice: productData.negotiablePrice ? null : productData.price,
-        hotPrice: productData.negotiablePrice ? null : productData.price,
-        category: productData.category,
-        subcategory: productData.subcategory || null,
-        tags: [productData.category, productData.subcategory].filter(Boolean),
-        image: image,
-        images: images,
-        avatar: "/images/ava-default.png",
-        rating: 0,
-        reviews: [],
-        brand: "HOLYTRAFF",
-        type: productData.category,
-        subtype: productData.subcategory || "single",
-        platforms: ["FB", "ASO", "TikTok", "UAC"],
-        promotionalText: "",
-        overlayText: "",
-        chatCount: "0",
-        isFavorite: false,
-        isHot: false,
-        autoRenewal: productData.autoRenewal,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      }
+     // Если API недоступен или не сработал, сохраняем локально
+     const newProduct = {
+       id: Date.now(),
+       name: productData.name,
+       description: productData.description,
+       price: productData.price,
+       currency: productData.currency,
+       negotiablePrice: productData.negotiablePrice,
+       oldPrice: productData.price,
+       hotPrice: productData.price,
+       category: productData.category,
+       subcategory: productData.subcategory || null,
+       tags: [productData.category, productData.subcategory].filter(Boolean),
+       image: image,
+       images: images,
+       avatar: "/images/ava-default.png",
+       rating: 0,
+       reviews: [],
+       brand: "HOLYTRAFF",
+       type: productData.category,
+       subtype: productData.subcategory || "single",
+       platforms: ["FB", "ASO", "TikTok", "UAC"],
+       promotionalText: "",
+       overlayText: "",
+       chatCount: "0",
+       isFavorite: false,
+       isHot: false,
+       autoRenewal: productData.autoRenewal,
+       createdAt: new Date().toISOString(),
+       updatedAt: new Date().toISOString()
+     }
 
-      const existingProducts = JSON.parse(localStorage.getItem('marketplace-products') || '[]')
-      const updatedProducts = [...existingProducts, newProduct]
-      localStorage.setItem('marketplace-products', JSON.stringify(updatedProducts))
+     const existingProducts = JSON.parse(localStorage.getItem('marketplace-products') || '[]')
+     const updatedProducts = [...existingProducts, newProduct]
+     localStorage.setItem('marketplace-products', JSON.stringify(updatedProducts))
 
-      return {
-        success: true,
-        product: newProduct,
-        message: 'Продукт додано локально (API недоступен)'
-      }
-    }
+     return {
+       success: true,
+       product: newProduct,
+       message: 'Продукт додано локально'
+     }
   } catch (error) {
     console.error('Error adding product:', error)
     return {

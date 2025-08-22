@@ -9,6 +9,11 @@
 @use './components/product-page' as *;
 @use './components/rating-stars' as *;
 @use './sections/product-collection' as *;
+@use './components/privacy' as *;
+@use './components/policy' as *;
+@use './components/faq' as *;
+@use './components/help-center' as *;
+@use './components/about' as *;
 
 // CSS Variables for themes
 :root {

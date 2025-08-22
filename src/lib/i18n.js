@@ -68,26 +68,34 @@ const resources = {
         noAccount: "Don't have an account? Sign up",
         haveAccount: 'Already have an account? Sign in'
       },
-      footer: {
-        description: 'Your trusted marketplace for quality products',
-        quickLinks: 'Quick Links',
-        support: 'Support',
-        helpCenter: 'Help Center',
-        faq: 'FAQ',
-        contact: 'Contact',
-        rights: 'All rights reserved.',
-        contactUs: 'CONTACT US',
-        withUs: 'WITH US'
-      },
-      pages: {
-        addProduct: 'Add New Product',
-        createAnnouncement: 'CREATE ANNOUNCEMENT',
-        profile: 'Profile',
-        favorites: 'Favorites',
-        contacts: 'Contact Us',
-        backToHome: 'Back to Home',
-        backToProducts: 'Back to Products'
-      },
+             footer: {
+         description: 'Your trusted marketplace for quality products',
+         quickLinks: 'Quick Links',
+         support: 'Support',
+         helpCenter: 'Help Center',
+         faq: 'FAQ',
+         contact: 'Contact',
+         rights: 'All rights reserved.',
+         contactUs: 'CONTACT US',
+         withUs: 'WITH US',
+         privacy: 'Privacy',
+         policy: 'Policy',
+         about: 'About'
+       },
+             pages: {
+         addProduct: 'Add New Product',
+         createAnnouncement: 'CREATE ANNOUNCEMENT',
+         profile: 'Profile',
+         favorites: 'Favorites',
+         contacts: 'Contact Us',
+         backToHome: 'Back to Home',
+         backToProducts: 'Back to Products',
+         privacy: 'Privacy Policy',
+         policy: 'Terms & Conditions',
+         faq: 'Frequently Asked Questions',
+         helpCenter: 'Help Center',
+         about: 'About Us'
+       },
       categories: {
         all: "All Categories",
         electronics: "Electronics",
@@ -139,9 +147,29 @@ const resources = {
       success: {
         productCreated: "Announcement created successfully!"
       },
-      error: {
-        productCreation: "Error creating announcement"
-      },
+               error: {
+           productCreation: "Error creating announcement"
+         },
+         privacy: {
+           title: "Privacy Policy",
+           description: "This page is under construction. Privacy policy content will be added soon."
+         },
+         policy: {
+           title: "Terms & Conditions",
+           description: "This page is under construction. Terms and conditions content will be added soon."
+         },
+         faq: {
+           title: "Frequently Asked Questions",
+           description: "This page is under construction. FAQ content will be added soon."
+         },
+         helpCenter: {
+           title: "Help Center",
+           description: "This page is under construction. Help center content will be added soon."
+         },
+         about: {
+           title: "About Us",
+           description: "This page is under construction. About us content will be added soon."
+         },
              categories: {
          applications: "Applications",
          igamingCreatives: "Creatives for iGaming",
@@ -229,26 +257,34 @@ const resources = {
         noAccount: 'Немає облікового запису? Зареєструйтеся',
         haveAccount: 'Вже є обліковий запис? Увійдіть'
       },
-      footer: {
-        description: 'Ваш надійний маркетплейс для якісних товарів',
-        quickLinks: 'Швидкі Посилання',
-        support: 'Підтримка',
-        helpCenter: 'Центр Допомоги',
-        faq: 'Часті Питання',
-        contact: 'Контакти',
-        rights: 'Всі права захищені.',
-        contactUs: 'ЗВ\'ЯЗАТИСЬ',
-        withUs: 'З НАМИ'
-      },
-      pages: {
-        addProduct: 'Додати Новий Продукт',
-        createAnnouncement: 'СТВОРИТИ ОГОЛОШЕННЯ',
-        profile: 'Профіль',
-        favorites: 'Улюблені',
-        contacts: 'Зв\'язатися з Нами',
-        backToHome: 'Повернутися на Головну',
-        backToProducts: 'Повернутися до Продуктів'
-      },
+               footer: {
+           description: 'Ваш надійний маркетплейс для якісних товарів',
+           quickLinks: 'Швидкі Посилання',
+           support: 'Підтримка',
+           helpCenter: 'Центр Допомоги',
+           faq: 'Часті Питання',
+           contact: 'Контакти',
+           rights: 'Всі права захищені.',
+           contactUs: 'ЗВ\'ЯЗАТИСЬ',
+           withUs: 'З НАМИ',
+           privacy: 'Конфіденційність',
+           policy: 'Умови',
+           about: 'Про нас'
+         },
+               pages: {
+           addProduct: 'Додати Новий Продукт',
+           createAnnouncement: 'СТВОРИТИ ОГОЛОШЕННЯ',
+           profile: 'Профіль',
+           favorites: 'Улюблені',
+           contacts: 'Зв\'язатися з Нами',
+           backToHome: 'Повернутися на Головну',
+           backToProducts: 'Повернутися до Продуктів',
+           privacy: 'Політика Конфіденційності',
+           policy: 'Умови та Положення',
+           faq: 'Часті Питання',
+           helpCenter: 'Центр Допомоги',
+           about: 'Про Нас'
+         },
                categories: {
            all: "Всі Категорії",
            electronics: "Електроніка",
@@ -302,6 +338,7 @@ const resources = {
         price: "Ціна",
         enterPrice: "Вкажіть ціну*",
         negotiablePrice: "Ціна договірна",
+        negotiableNote: "Ціна вказується для орієнтації, можна торгуватися",
         autoRenewal: "АВТОПРОДОВЖЕННЯ",
         autoRenewalInfo: "Оголошення буде деактивовано через 30 днів",
         preview: "ПОПЕРЕДНІЙ ПЕРЕГЛЯД",
@@ -318,9 +355,29 @@ const resources = {
       success: {
         productCreated: "Оголошення створено успішно!"
       },
-      error: {
-        productCreation: "Помилка створення оголошення"
-      }
+               error: {
+           productCreation: "Помилка створення оголошення"
+         },
+         privacy: {
+           title: "Політика Конфіденційності",
+           description: "Ця сторінка знаходиться в розробці. Зміст політики конфіденційності буде додано найближчим часом."
+         },
+         policy: {
+           title: "Умови та Положення",
+           description: "Ця сторінка знаходиться в розробці. Зміст умов та положень буде додано найближчим часом."
+         },
+         faq: {
+           title: "Часті Питання",
+           description: "Ця сторінка знаходиться в розробці. Зміст FAQ буде додано найближчим часом."
+         },
+         helpCenter: {
+           title: "Центр Допомоги",
+           description: "Ця сторінка знаходиться в розробці. Зміст центру допомоги буде додано найближчим часом."
+         },
+         about: {
+           title: "Про Нас",
+           description: "Ця сторінка знаходиться в розробці. Зміст про нас буде додано найближчим часом."
+         }
     }
   }
 }

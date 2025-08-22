@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect } from "react"
+import { useState, useRef, useContext, useEffect, useMemo, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Upload, Paperclip, X } from "lucide-react"
@@ -30,8 +30,8 @@ export default function AddProduct() {
   const [isCategoriesExpanded, setIsCategoriesExpanded] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Категории из CategoriesNavigation.jsx
-  const categoriesData = [
+  // Категории из CategoriesNavigation.jsx - мемоизированы для производительности
+  const categoriesData = useMemo(() => [
     {
       id: "applications",
       label: t('categories.applications', 'ЗАСТОСУНКИ'),
@@ -100,23 +100,23 @@ export default function AddProduct() {
       label: t('categories.3d', '3D'),
       hasSubcategories: false
     }
-  ]
+  ], [t])
 
-  const currencies = [
+  const currencies = useMemo(() => [
     { code: "USD", label: "USD" },
     { code: "EUR", label: "EUR" },
     { code: "UAH", label: "UAH" },
     { code: "USDT", label: "USDT" }
-  ]
+  ], [])
 
-  const toggleCategoriesExpansion = () => {
+  const toggleCategoriesExpansion = useCallback(() => {
     setIsCategoriesExpanded(prev => !prev)
     if (isCategoriesExpanded) {
       setExpandedCategories({})
     }
-  }
+  }, [isCategoriesExpanded])
 
-  const toggleCategoryExpansion = (categoryId) => {
+  const toggleCategoryExpansion = useCallback((categoryId) => {
     setExpandedCategories(prev => {
       if (prev[categoryId]) {
         const newState = { ...prev }
@@ -125,37 +125,48 @@ export default function AddProduct() {
       }
       return { [categoryId]: true }
     })
-  }
+  }, [])
 
-  const handleInputChange = (e) => {
+    const handleInputChange = useCallback((e) => {
     const { name, value, type, checked } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
-
+    
     // Сброс ошибок при изменении
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }))
     }
-
-    // Сброс подкатегории при смене категории
+    
+    // Сброс подкатегории при смене категории только если новая категория не поддерживает текущую подкатегорию
     if (name === 'category') {
-      setFormData(prev => ({ ...prev, subcategory: "" }))
+      setFormData(prev => {
+        const newCategory = value
+        const categoryData = categoriesData.find(cat => cat.id === newCategory)
+        const shouldResetSubcategory = !categoryData?.subcategories?.some(sub => sub.id === prev.subcategory)
+        
+        return {
+          ...prev,
+          subcategory: shouldResetSubcategory ? "" : prev.subcategory
+        }
+      })
     }
-  }
+  }, [errors, categoriesData])
 
-  const handleFileUpload = async (e) => {
+    const handleFileUpload = useCallback(async (e) => {
     const uploadedFiles = Array.from(e.target.files)
     const validFiles = uploadedFiles.filter(file => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/')
       const isValidSize = file.size <= 10 * 1024 * 1024 // 10MB максимум
       return isValidType && isValidSize
     })
-
+    
+    if (validFiles.length === 0) return
+    
     const newFiles = [...files, ...validFiles].slice(0, 5) // Максимум 5 файлов
     setFiles(newFiles)
-
+    
     // Создаем preview для новых файлов
     const newPreviews = []
     for (const file of validFiles) {
@@ -171,117 +182,161 @@ export default function AddProduct() {
         newPreviews.push("/images/placeholder.svg")
       }
     }
-
+    
     setFilePreviews(prev => [...prev, ...newPreviews].slice(0, 5))
-
+    
     // Сброс ошибки файлов при успешной загрузке
-    if (validFiles.length > 0 && errors.files) {
+    if (errors.files) {
       setErrors(prev => ({ ...prev, files: null }))
     }
-  }
+  }, [files, errors.files])
 
-  const removeFile = (index) => {
-    setFiles(files.filter((_, i) => i !== index))
-    setFilePreviews(filePreviews.filter((_, i) => i !== index))
-  }
+  const removeFile = useCallback((index) => {
+    setFiles(prev => prev.filter((_, i) => i !== index))
+    setFilePreviews(prev => prev.filter((_, i) => i !== index))
+  }, [])
 
-  const reorderFiles = (fromIndex, toIndex) => {
-    const newFiles = [...files]
-    const [removed] = newFiles.splice(fromIndex, 1)
-    newFiles.splice(toIndex, 0, removed)
-    setFiles(newFiles)
-  }
+  const reorderFiles = useCallback((fromIndex, toIndex) => {
+    setFiles(prev => {
+      const newFiles = [...prev]
+      const [removed] = newFiles.splice(fromIndex, 1)
+      newFiles.splice(toIndex, 0, removed)
+      return newFiles
+    })
+    
+    setFilePreviews(prev => {
+      const newPreviews = [...prev]
+      const [removed] = newPreviews.splice(fromIndex, 1)
+      newPreviews.splice(toIndex, 0, removed)
+      return newPreviews
+    })
+  }, [])
 
-  const handleDragOver = (e) => {
+    const handleDragOver = useCallback((e) => {
     e.preventDefault()
     e.stopPropagation()
-  }
+  }, [])
 
-  const handleDrop = (e) => {
+  const handleDrop = useCallback((e) => {
     e.preventDefault()
     e.stopPropagation()
-
+    
     const droppedFiles = Array.from(e.dataTransfer.files)
     const validFiles = droppedFiles.filter(file => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/')
       const isValidSize = file.size <= 10 * 1024 * 1024 // 10MB максимум
       return isValidType && isValidSize
     })
-
-    const newFiles = [...files, ...validFiles].slice(0, 5)
-    setFiles(newFiles)
-
-    if (validFiles.length > 0 && errors.files) {
+    
+    if (validFiles.length === 0) return
+    
+    setFiles(prev => [...prev, ...validFiles].slice(0, 5))
+    
+    if (errors.files) {
       setErrors(prev => ({ ...prev, files: null }))
     }
-  }
+  }, [errors.files])
 
-  const validateForm = () => {
+    const validateForm = useCallback(() => {
     const newErrors = {}
-
+    
     if (formData.name.length < 16) {
       newErrors.name = t('validation.nameMinLength', 'Введіть щонайменше 16 символів')
     }
-
+    
     if (!formData.category) {
       newErrors.category = t('validation.categoryRequired', 'Оберіть категорію')
     }
-
+    
     if (formData.description.length < 40) {
       newErrors.description = t('validation.descriptionMinLength', 'Введіть щонайменше 40 символів')
     }
-
-    if (!formData.price && !formData.negotiablePrice) {
-      newErrors.price = t('validation.priceRequired', 'Вкажіть ціну або оберіть договірну')
-    }
-
+    
+         if (!formData.price) {
+       newErrors.price = t('validation.priceRequired', 'Вкажіть ціну')
+     }
+    
     if (files.length === 0) {
       newErrors.files = t('validation.filesRequired', 'Додайте хоча б одне фото/відео')
     }
-
+    
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
-  }
+  }, [formData.name, formData.category, formData.description, formData.price, formData.negotiablePrice, files.length, t])
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
-
+    
     if (!validateForm()) {
       return
     }
-
+    
     setIsSubmitting(true)
+    
+         try {
+       // Добавляем продукт через контекст
+       const newProduct = await addProduct(formData, files)
+       
+       console.log("Product added successfully:", newProduct)
+       alert(t('success.productCreated', 'Оголошення створено успішно!'))
+       
+       // Перенаправляем на главную страницу
+       navigate("/")
+     } catch (error) {
+       console.error("Error creating product:", error)
+       const errorMessage = error.message || 'Невідома помилка'
+       alert(t('error.productCreation', 'Помилка створення оголошення: ') + errorMessage)
+     } finally {
+       setIsSubmitting(false)
+     }
+  }, [validateForm, addProduct, formData, files, t, navigate])
 
-    try {
-      // Добавляем продукт через контекст
-      const newProduct = await addProduct(formData, files)
+  const selectedCategory = useMemo(() => 
+    categoriesData.find(cat => cat.id === formData.category), 
+    [categoriesData, formData.category]
+  )
+  
+  const hasSubcategories = useMemo(() => 
+    selectedCategory?.hasSubcategories, 
+    [selectedCategory]
+  )
 
-      console.log("Product added successfully:", newProduct)
-      alert(t('success.productCreated', 'Оголошення створено успішно!'))
-
-      // Перенаправляем на главную страницу
-      navigate("/")
-    } catch (error) {
-      console.error("Error creating product:", error)
-      alert(t('error.productCreation', 'Помилка створення оголошення: ') + error.message)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const selectedCategory = categoriesData.find(cat => cat.id === formData.category)
-  const hasSubcategories = selectedCategory?.hasSubcategories
-
-  // Отслеживаем размер экрана для мобильной адаптации
+    // Отслеживаем размер экрана для мобильной адаптации с debounce
   useEffect(() => {
+    let timeoutId
+    
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
+      const newIsMobile = window.innerWidth <= 768
+      setIsMobile(prev => {
+        if (prev !== newIsMobile) {
+          return newIsMobile
+        }
+        return prev
+      })
     }
-
+    
+    const debouncedCheckMobile = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(checkMobile, 100)
+    }
+    
     checkMobile()
-    window.addEventListener('resize', checkMobile)
+    window.addEventListener('resize', debouncedCheckMobile)
+    
+    return () => {
+      window.removeEventListener('resize', debouncedCheckMobile)
+      clearTimeout(timeoutId)
+    }
+  }, [])
 
-    return () => window.removeEventListener('resize', checkMobile)
+  // Очистка неиспользуемых состояний при размонтировании
+  useEffect(() => {
+    return () => {
+      setFiles([])
+      setFilePreviews([])
+      setErrors({})
+      setExpandedCategories({})
+    }
   }, [])
 
 
@@ -378,14 +433,18 @@ export default function AddProduct() {
                             <div className="add-product__subcategories-panel">
                               <div className="add-product__subcategories">
                                 {category.subcategories?.map((subcategory) => (
-                                  <button
-                                    key={subcategory.id}
-                                    type="button"
-                                    className={`add-product__subcategory-btn ${formData.subcategory === subcategory.id ? 'active' : ''}`}
-                                    onClick={() => setFormData(prev => ({ ...prev, subcategory: subcategory.id }))}
-                                  >
-                                    {subcategory.label}
-                                  </button>
+                                                                     <button
+                                     key={subcategory.id}
+                                     type="button"
+                                     className={`add-product__subcategory-btn ${formData.subcategory === subcategory.id ? 'active' : ''}`}
+                                     onClick={() => setFormData(prev => ({ 
+                                       ...prev, 
+                                       category: category.id,
+                                       subcategory: subcategory.id 
+                                     }))}
+                                   >
+                                     {subcategory.label}
+                                   </button>
                                 ))}
                               </div>
                             </div>
@@ -446,66 +505,65 @@ export default function AddProduct() {
                   </button>
                 </div>
 
-                {/* Слоты для файлов */}
-                {Array.from({ length: 4 }, (_, index) => {
-                  // Показываем все заполненные слоты + минимум 1 пустой слот
-                  let shouldShowSlot = true;
-
-                  if (isMobile) {
-                    // На мобильных: показываем все заполненные слоты + 1 пустой
-                    if (index >= files.length + 1) {
-                      shouldShowSlot = false;
-                    }
-                  } else {
-                    // На десктопе: показываем все слоты
-                    if (index >= 4) {
-                      shouldShowSlot = false;
-                    }
-                  }
-
-                  // Отладочная информация
-                  console.log(`Slot ${index}: files.length=${files.length}, isMobile=${isMobile}, shouldShowSlot=${shouldShowSlot}`);
-
-                  if (!shouldShowSlot) return null;
-
-                  return (
-                    <div key={index} className={`add-product__file-upload-slot ${files[index] ? 'file-preview' : 'empty'}`}>
-                      {files[index] ? (
-                        <>
-                          <img
-                            src={filePreviews[index] || "/images/placeholder.svg"}
-                            alt={`File ${index + 1}`}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeFile(index)}
-                            className="add-product__file-upload-remove-btn remove-btn"
-                          >
-                            <X />
-                          </button>
-                        </>
-                      ) : (
-                        <div className="placeholder">
-                          {isMobile ? (
-                            <button
-                              type="button"
-                              onClick={() => fileInputRef.current?.click()}
-                              className="placeholder-add-btn"
-                            >
-                              <X className="placeholder-add-icon" />
-                            </button>
-                          ) : (
-                            <img
-                              src="/images/img-icon.svg"
-                              alt="Add image"
-                              className="placeholder-icon"
-                            />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                                                  {/* Слоты для файлов */}
+                 {useMemo(() => 
+                   Array.from({ length: 4 }, (_, index) => {
+                     // Показываем все заполненные слоты + минимум 1 пустой слот
+                     let shouldShowSlot = true;
+                     
+                     if (isMobile) {
+                       // На мобильных: показываем все заполненные слоты + 1 пустой
+                       if (index >= files.length + 1) {
+                         shouldShowSlot = false;
+                       }
+                     } else {
+                       // На десктопе: показываем все слоты
+                       if (index >= 4) {
+                         shouldShowSlot = false;
+                       }
+                     }
+                     
+                     if (!shouldShowSlot) return null;
+                     
+                     return (
+                       <div key={index} className={`add-product__file-upload-slot ${files[index] ? 'file-preview' : 'empty'}`}>
+                         {files[index] ? (
+                           <>
+                             <img
+                               src={filePreviews[index] || "/images/golden-mine.jpg"}
+                               alt={`File ${index + 1}`}
+                             />
+                             <button
+                               type="button"
+                               onClick={() => removeFile(index)}
+                               className="add-product__file-upload-remove-btn remove-btn"
+                             >
+                               <X />
+                             </button>
+                           </>
+                         ) : (
+                           <div className="placeholder">
+                             {isMobile ? (
+                               <button
+                                 type="button"
+                                 onClick={() => fileInputRef.current?.click()}
+                                 className="placeholder-add-btn"
+                               >
+                                 <X className="placeholder-add-icon" />
+                               </button>
+                             ) : (
+                               <img
+                                 src="/images/img-icon.svg"
+                                 alt="Add image"
+                                 className="placeholder-icon"
+                               />
+                             )}
+                           </div>
+                         )}
+                       </div>
+                     );
+                   }).filter(Boolean)
+                 , [isMobile, files.length, files, filePreviews, removeFile])}
               </div>
 
               {errors.files && (
@@ -581,19 +639,24 @@ export default function AddProduct() {
                   ))}
                 </div>
 
-                {/* Договірна ціна */}
-                <div className="add-product__price-negotiable">
-                  <input
-                    type="checkbox"
-                    name="negotiablePrice"
-                    checked={formData.negotiablePrice}
-                    onChange={handleInputChange}
-                    id="negotiablePrice"
-                  />
-                  <label htmlFor="negotiablePrice">
-                    {t('form.negotiablePrice', 'Ціна договірна')}
-                  </label>
-                </div>
+                                 {/* Договірна ціна */}
+                 <div className="add-product__price-negotiable">
+                   <input
+                     type="checkbox"
+                     name="negotiablePrice"
+                     checked={formData.negotiablePrice}
+                     onChange={handleInputChange}
+                     id="negotiablePrice"
+                   />
+                   <label htmlFor="negotiablePrice">
+                     {t('form.negotiablePrice', 'Ціна договірна')}
+                   </label>
+                   {formData.negotiablePrice && (
+                     <div className="add-product__negotiable-note">
+                       {t('form.negotiableNote', 'Ціна вказується для орієнтації, можна торгуватися')}
+                     </div>
+                   )}
+                 </div>
               </div>
 
               {errors.price && (

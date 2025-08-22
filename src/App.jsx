@@ -16,6 +16,11 @@ import AddProduct from "./pages/AddProduct";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import Contacts from "./pages/Contacts";
+import Privacy from "./pages/Privacy";
+import Policy from "./pages/Policy";
+import FAQ from "./pages/FAQ";
+import HelpCenter from "./pages/HelpCenter";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import "@/lib/i18n";
 
@@ -34,6 +39,11 @@ const AppContent = () => {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/policy" element={<Policy />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
