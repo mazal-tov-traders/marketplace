@@ -170,6 +170,51 @@ const resources = {
            title: "About Us",
            description: "This page is under construction. About us content will be added soon."
          },
+         auth: {
+           signup: {
+             title: "Sign Up"
+           },
+           signin: {
+             title: "Sign In"
+           },
+           firstName: "First Name",
+           lastName: "Last Name",
+           email: "Email",
+           phone: "Phone",
+           password: "Password",
+           confirmPassword: "Confirm Password",
+           signUp: "Sign Up",
+           signIn: "Sign In",
+           signingUp: "Signing Up...",
+           signingIn: "Signing In...",
+           continueWithGoogle: "Continue with Google",
+           signInWithGoogle: "Sign In with Google",
+           continueWithApple: "Continue with Apple",
+           signInWithApple: "Sign In with Apple",
+           or: "Or",
+           alreadyHaveAccount: "Already have an account?",
+           noAccount: "Don't have an account?",
+           logout: "Logout",
+           success: {
+             signUpComplete: "Registration successful! Welcome!",
+             signInComplete: "Welcome back!"
+           },
+           welcomeBack: "Welcome back!",
+           signInToAccount: "Sign in to your account",
+           errors: {
+             firstNameRequired: "First name is required",
+             emailRequired: "Email is required",
+             emailInvalid: "Invalid email format",
+             passwordRequired: "Password is required",
+             passwordTooShort: "Password must be at least 6 characters",
+             passwordsNotMatch: "Passwords do not match",
+             invalidCredentials: "Invalid email or password",
+             userNotFound: "User not found",
+             wrongPassword: "Wrong password",
+             invalidEmail: "Invalid email format",
+             userDisabled: "Account is disabled"
+           }
+         },
              categories: {
          applications: "Applications",
          igamingCreatives: "Creatives for iGaming",
@@ -377,6 +422,51 @@ const resources = {
          about: {
            title: "Про Нас",
            description: "Ця сторінка знаходиться в розробці. Зміст про нас буде додано найближчим часом."
+         },
+         auth: {
+           signup: {
+             title: "Реєстрація"
+           },
+           signin: {
+             title: "Вхід"
+           },
+           firstName: "Ім'я",
+           lastName: "Прізвище",
+           email: "Email",
+           phone: "Телефон",
+           password: "Пароль",
+           confirmPassword: "Підтвердити пароль",
+           signUp: "Зареєструватися",
+           signIn: "Увійти",
+           signingUp: "Реєстрація...",
+           signingIn: "Вхід...",
+           continueWithGoogle: "Продовжити з Google",
+           signInWithGoogle: "Увійти через Google",
+           continueWithApple: "Продовжити з Apple",
+           signInWithApple: "Увійти через Apple",
+           or: "Або",
+           alreadyHaveAccount: "Вже є аккаунт?",
+           noAccount: "Немає аккаунту?",
+           logout: "Вийти",
+           success: {
+             signUpComplete: "Реєстрація успішна! Ласкаво просимо!",
+             signInComplete: "З поверненням!"
+           },
+           welcomeBack: "З поверненням!",
+           signInToAccount: "Увійдіть до свого акаунту",
+           errors: {
+             firstNameRequired: "Ім'я обов'язкове",
+             emailRequired: "Email обов'язковий",
+             emailInvalid: "Неправильний формат email",
+             passwordRequired: "Пароль обов'язковий",
+             passwordTooShort: "Пароль повинен бути не менше 6 символів",
+             passwordsNotMatch: "Паролі не збігаються",
+             invalidCredentials: "Неправильний email або пароль",
+             userNotFound: "Користувач не знайдений",
+             wrongPassword: "Неправильний пароль",
+             invalidEmail: "Неправильний формат email",
+             userDisabled: "Аккаунт заблокований"
+           }
          }
     }
   }

@@ -3,10 +3,12 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+
   &__inner.page-width {
     padding-top: 40px;
     padding-bottom: 40px;
   }
+
   &__inner {
 
     display: flex;
@@ -237,7 +239,7 @@
     &__inner {
       position: relative;
       width: 80px;
-      height: 32px;
+      height: 38px;
       border: 2px solid #FFFFFF;
       border-radius: 20px;
       background: transparent;
@@ -352,7 +354,7 @@
   &__inner {
     position: relative;
     width: 80px;
-    height: 32px;
+    height: 38px;
     border: 2px solid #FFFFFF;
     border-radius: 20px;
     background: transparent;
@@ -420,8 +422,7 @@
   }
 
   &__icon {
-    width: 24px;
-    height: 24px;
+
     transition: opacity 0.25s ease-in-out;
   }
 
@@ -524,6 +525,390 @@
 
       &__option {
         font-size: 16px;
+      }
+    }
+  }
+}
+
+// Auth Section Styles
+.header {
+  .header__user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .header__user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header__user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+
+    &--placeholder {
+      background: #4285f4;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .header__user-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #fff;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .header__logout-btn {
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid #666;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #90FF00;
+      color: #90FF00;
+    }
+  }
+
+  .header__auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .header__auth-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &--signin {
+      color: #fff;
+      border: 1px solid #666;
+      background: transparent;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #90FF00;
+        color: #90FF00;
+      }
+    }
+
+    &--signup {
+      background: #90FF00;
+      color: #000;
+      border: 1px solid #90FF00;
+
+      &:hover {
+        background: #7acc00;
+        border-color: #7acc00;
+      }
+    }
+  }
+
+  // Mobile User Styles
+  .header__mobile-user {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+  }
+
+  .header__mobile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header__mobile-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+
+    &--placeholder {
+      background: #4285f4;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  .header__mobile-user-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .header__nav-link--logout {
+    background: none !important;
+    border: none !important;
+    width: 100% !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    color: #e74c3c !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    transition: color 0.25s ease-in-out !important;
+
+    &:hover {
+      color: #90FF00 !important;
+    }
+  }
+
+  // Heart Button
+  .header__heart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &__icon {
+
+      transition: opacity 0.25s ease-in-out;
+    }
+
+  }
+
+  // Account Button
+  .header__account-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: relative;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &__icon {
+      transition: opacity 0.25s ease-in-out;
+    }
+  }
+
+  // Account Popup
+  .header__account-popup {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    min-width: 280px;
+    overflow: hidden;
+
+    &__content {
+      padding: 0;
+    }
+
+    // Profile Popup
+    &__profile {
+      padding: 20px;
+    }
+
+    &__user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #333;
+    }
+
+    &__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+
+      &--placeholder {
+        background: #4285f4;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+
+    &__user-details {
+      flex: 1;
+    }
+
+    &__user-name {
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    &__user-email {
+      color: #888;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+    }
+
+    &__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__link {
+      display: block;
+      padding: 12px 16px;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: rgba(144, 255, 0, 0.1);
+        color: #90FF00;
+      }
+    }
+
+    &__logout {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      color: #e74c3c;
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      margin-top: 8px;
+      border-top: 1px solid #333;
+      padding-top: 16px;
+
+      &:hover {
+        background-color: rgba(231, 76, 60, 0.1);
+        color: #ff6b6b;
+      }
+    }
+
+    // Auth Popup
+    &__auth {
+      padding: 24px;
+      text-align: center;
+    }
+
+    &__auth-title {
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    &__auth-subtitle {
+      color: #888;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    &__auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &__auth-btn {
+      display: block;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-align: center;
+
+      &--signin {
+        background: #90FF00;
+        color: #000;
+
+        &:hover {
+          background: #7de600;
+          transform: translateY(-1px);
+        }
+      }
+
+      &--signup {
+        background: transparent;
+        color: #90FF00;
+        border: 1px solid #90FF00;
+
+        &:hover {
+          background: #90FF00;
+          color: #000;
+          transform: translateY(-1px);
+        }
       }
     }
   }

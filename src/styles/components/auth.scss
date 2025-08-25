@@ -1,0 +1,306 @@
+// Общие стили для аутентификации
+.signup,
+.signin {
+  min-height: 100vh;
+  background: white;
+  font-family: "JetBrains Mono", monospace;
+
+  &__inner.page-width {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @media (min-width: 768px) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+
+  &__container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    @media (min-width: 768px) {
+      padding: 40px;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  &__title {
+    font-family: 'Arial Black', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 110%;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: 36px;
+    }
+  }
+
+  &__error {
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    background: #fee;
+    border: 1px solid #fcc;
+    border-radius: 8px;
+    color: #c33;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  // Социальная аутентификация
+  &__social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background: #f9f9f9;
+      border-color: #bbb;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &--google {
+      &:hover:not(:disabled) {
+        background: #f8f9ff;
+        border-color: #4285f4;
+      }
+    }
+
+    &--apple {
+      &:hover:not(:disabled) {
+        background: #f8f8f8;
+        border-color: #333;
+      }
+    }
+  }
+
+  &__social-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  // Разделитель
+  &__divider {
+    position: relative;
+    margin: 24px 0;
+    text-align: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #ddd;
+    }
+
+    &-text {
+      display: inline-block;
+      padding: 0 16px;
+      background: #fff;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  // Форма
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__form-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+  }
+
+  &__form-input {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    background: #fff;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #4285f4;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+    }
+
+    &--error {
+      border-color: #e74c3c;
+
+      &:focus {
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+      }
+    }
+  }
+
+  &__form-error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  &__form-submit {
+    padding: 14px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+
+    &:hover:not(:disabled) {
+      background: #333;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  // Футер
+  &__footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #666;
+
+    &-link {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Стили для ProtectedRoute
+.protected-route {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__loading {
+    text-align: center;
+  }
+
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4285f4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  &__loading-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Адаптивность
+@media (max-width: 480px) {
+  .signup,
+  .signin {
+    &__container {
+      margin: 0 16px;
+      padding: 24px 16px;
+    }
+
+    &__social-btn {
+      padding: 14px 16px;
+      font-size: 13px;
+    }
+
+    &__form-input {
+      padding: 14px 16px;
+    }
+
+    &__form-submit {
+      padding: 16px 20px;
+    }
+  }
+}
+
